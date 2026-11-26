@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#000000">
+<title>HUDナビ</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;background:#000;color:#fff;font-family:-apple-system,"Hiragino Sans",sans-serif;overflow:hidden;user-select:none;-webkit-user-select:none}
+#app{height:100%;display:grid;grid-template-columns:1.15fr 1fr .85fr;grid-template-rows:1fr auto;gap:0 2vw;
+  padding:max(2vh,env(safe-area-inset-top)) max(3vw,env(safe-area-inset-right)) max(1.5vh,env(safe-area-inset-bottom)) max(3vw,env(safe-area-inset-left))}
+.col{display:flex;flex-direction:column;justify-content:center;min-width:0}
+.lbl{font-size:2.6vh;color:#6b7a86;letter-spacing:.05em}
+/* turn */
+#turn{align-items:flex-start}
+#arrowwrap{height:30vh;width:30vh;margin-bottom:1vh}
+#arrow{width:100%;height:100%;transition:transform .25s}
+#arrow path,#arrow circle{fill:#3dff8b}
+#tdist{font-size:15vh;font-weight:800;line-height:1;color:#3dff8b;font-variant-numeric:tabular-nums;white-space:nowrap}
+#tdist small{font-size:6vh;font-weight:600;margin-left:.6vh}
+#tinstr{font-size:5vh;font-weight:700;margin-top:1vh;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+#tnext{font-size:3.4vh;color:#9fb0bd;margin-top:1.2vh;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+/* speed */
+#speedc{align-items:center;text-align:center}
+#speed{font-size:34vh;font-weight:800;line-height:.95;font-variant-numeric:tabular-nums}
+#speed.over{color:#ff3b3b;animation:bl .5s steps(2) infinite}
+@keyframes bl{50%{opacity:.35}}
+#kmh{font-size:5vh;color:#6b7a86;margin-top:.5vh}
+#limit{margin-top:2vh;border:.9vh solid #ff3b3b;border-radius:50%;width:11vh;height:11vh;display:flex;align-items:center;justify-content:center;font-size:5vh;font-weight:800;background:#111}
+#limit.off{border-color:#2a3239;color:#3b4650;font-size:2.6vh}
+#head{font-size:5vh;margin-top:2vh;color:#e8f0f5}
+#head span{color:#6b7a86;font-size:3.4vh;margin-left:1vh}
+/* info */
+#info{gap:2.2vh;align-items:flex-end;text-align:right}
+.v{font-size:7.5vh;font-weight:700;line-height:1.05;font-variant-numeric:tabular-nums;white-space:nowrap}
+.v small{font-size:3.6vh;color:#9fb0bd;font-weight:600;margin-left:.5vh}
+#clock{color:#ffd24a}
+/* bar */
+#bar{grid-column:1/-1;display:flex;gap:1.6vw;align-items:center;padding-top:1vh}
+button{font:inherit;color:#e8f0f5;background:#14191e;border:1px solid #2a3239;border-radius:2vh;padding:1.6vh 2.6vw;font-size:3.2vh}
+button.on{background:#0e3a22;border-color:#3dff8b;color:#3dff8b}
+button:active{background:#22303a}
+#status{margin-left:auto;font-size:2.8vh;color:#6b7a86;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* search overlay */
+#ov{position:fixed;inset:0;background:#05080aF2;display:none;flex-direction:column;padding:max(3vh,env(safe-area-inset-top)) max(4vw,env(safe-area-inset-right)) 2vh max(4vw,env(safe-area-inset-left));z-index:5}
+#ov.show{display:flex}
+#srow{display:flex;gap:2vw}
+#q{flex:1;font-size:4vh;padding:1.6vh 2vw;border-radius:2vh;border:1px solid #3a4650;background:#0f1418;color:#fff;min-width:0}
+#res{margin-top:2vh;overflow:auto;flex:1}
+.r{padding:2vh 2vw;border-bottom:1px solid #1d252b;font-size:3.6vh}
+.r small{display:block;color:#6b7a86;font-size:2.8vh;margin-top:.4vh}
+#msg{color:#ffd24a;font-size:3vh;margin-top:1.5vh;min-height:3.6vh}
+/* portrait fallback */
+@media (orientation:portrait){
+  #app{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto auto}
+  #turn,#speedc,#info{grid-column:1/-1;align-items:center;text-align:center}
+  #arrowwrap{height:16vh;width:16vh}#tdist{font-size:9vh}#speed{font-size:18vh}#info{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:2vh 6vw}
+  #tinstr{font-size:3.4vh}#limit{width:7vh;height:7vh;font-size:3.4vh}#head{font-size:3.4vh}.v{font-size:5vh}.lbl{font-size:2vh}
+  button{font-size:2.2vh;padding:1.2vh 3vw}#status{display:none}
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="turn" class="col">
+    <div id="arrowwrap">
+      <svg id="arrow" viewBox="0 0 100 100"><path id="ap" d="M50 6 L84 46 H61 V94 H39 V46 H16 Z"/><circle id="ac" cx="50" cy="50" r="30" style="display:none"/></svg>
+    </div>
+    <div id="tdist">--<small>m</small></div>
+    <div id="tinstr">目的地を設定してください</div>
+    <div id="tnext"></div>
+  </div>
+  <div id="speedc" class="col">
+    <div id="speed">0</div>
+    <div id="kmh">km/h</div>
+    <div id="limit" class="off">制限</div>
+    <div id="head">--<span></span></div>
+  </div>
+  <div id="info" class="col">
+    <div><div class="lbl">到着予定</div><div class="v" id="eta">--:--</div></div>
+    <div><div class="lbl">目的地まで</div><div class="v" id="rem">--<small>km</small></div></div>
+    <div><div class="lbl">残り時間</div><div class="v" id="remt">--<small>分</small></div></div>
+    <div><div class="lbl">現在時刻</div><div class="v" id="clock">--:--</div></div>
+    <div><div class="lbl">走行距離 / 経過</div><div class="v" id="trip" style="font-size:4.6vh">0.0<small>km</small> 0<small>分</small></div></div>
+  </div>
+  <div id="bar">
+    <button id="bSearch">🔍 目的地</button>
+    <button id="bVoice">🔇 音声</button>
+    <button id="bDemo">▶ デモ走行</button>
+    <button id="bStop">✕ 案内終了</button>
+    <div id="status">GPS待機中…</div>
+  </div>
+</div>
+
+<div id="ov">
+  <div id="srow"><input id="q" type="search" placeholder="目的地（例：甲府駅、住所、施設名）" enterkeyhint="search"><button id="bGo">検索</button><button id="bClose">閉じる</button></div>
+  <div id="msg"></div>
+  <div id="res"></div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const R=6371000, rad=d=>d*Math.PI/180;
+function hav(a,b,c,d){const dl=rad(c-a),dn=rad(d-b);const x=Math.sin(dl/2)**2+Math.cos(rad(a))*Math.cos(rad(c))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(x));}
+
+let pos=null,lastReal=null,route=null,coords=[],cum=[],steps=[],stepEnd=[],dest=null;
+let lastIdx=0,offCount=0,rerouting=false,voiceOn=false,spoken={},limit=0,trip=0,tripStart=Date.now();
+let sim=null,watchId=null,wake=null;
+
+/* ---------- 表示ヘルパー ---------- */
+function fmtDist(m){
+  if(m>=1000)return [ (m/1000).toFixed(m>=10000?0:1), 'km' ];
+  const r=m>=200?Math.round(m/50)*50:Math.round(m/10)*10;
+  return [String(Math.max(r,0)),'m'];
+}
+const MOD={'left':['左折',-90],'right':['右折',90],'slight left':['やや左方向',-45],'slight right':['やや右方向',45],
+  'sharp left':['大きく左折',-135],'sharp right':['大きく右折',135],'straight':['直進',0],'uturn':['Uターン',180]};
+function describe(m){
+  if(!m)return ['--',0];
+  const t=m.type,mod=m.modifier;
+  if(t==='arrive')return ['目的地に到着',null];
+  if(t==='roundabout'||t==='rotary'||t==='roundabout turn'){const e=(MOD[mod]||['',0]);return ['ロータリー '+(e[0]||''),e[1]||0];}
+  const e=MOD[mod]||['直進',0];
+  if(t==='merge')return ['合流 '+e[0],e[1]];
+  if(t==='on ramp')return ['入口 '+e[0],e[1]];
+  if(t==='off ramp')return ['出口 '+e[0],e[1]];
+  if(t==='fork')return ['分岐 '+e[0],e[1]];
+  if(t==='end of road')return [e[0],e[1]];
+  return [e[0],e[1]];
+}
+const DIRS=['北','北東','東','南東','南','南西','西','北西'];
+function setArrow(angle){
+  const ap=$('ap'),ac=$('ac');
+  if(angle===null){ap.style.display='none';ac.style.display='';return;}
+  ap.style.display='';ac.style.display='none';
+  $('arrow').style.transform='rotate('+angle+'deg)';
+}
+function setStatus(t){$('status').textContent=t;}
+function speak(t){
+  if(!voiceOn||!window.speechSynthesis)return;
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=1.05;speechSynthesis.speak(u);}catch(e){}
+}
+
+/* ---------- ルート ---------- */
+async function fetchRoute(o,d){
+  const url='https://router.project-osrm.org/route/v1/driving/'+o.lon+','+o.lat+';'+d.lon+','+d.lat+'?overview=full&geometries=geojson&steps=true';
+  const r=await fetch(url);
+  if(!r.ok)throw new Error('ルート計算に失敗しました');
+  const j=await r.json();
+  if(j.code!=='Ok'||!j.routes.length)throw new Error('ルートが見つかりません');
+  return j.routes[0];
+}
+function setRoute(rt){
+  route=rt;coords=rt.geometry.coordinates;cum=[0];
+  for(let i=1;i<coords.length;i++)cum.push(cum[i-1]+hav(coords[i-1][1],coords[i-1][0],coords[i][1],coords[i][0]));
+  steps=rt.legs.flatMap(l=>l.steps);
+  const sum=steps.reduce((s,x)=>s+x.distance,0)||1,tot=cum[cum.length-1];
+  let acc=0;stepEnd=steps.map(s=>{acc+=s.distance;return acc*tot/sum;});
+  lastIdx=0;offCount=0;spoken={};
+}
+async function startRoute(d,name){
+  dest={lat:d.lat,lon:d.lon,name:name};
+  const o=pos||(sim?null:null);
+  if(!o){showMsg('現在地を取得できません。GPSの許可と電波を確認してください');return false;}
+  showMsg('ルート計算中…');
+  try{
+    setRoute(await fetchRoute(o,dest));
+    $('ov').classList.remove('show');showMsg('');
+    setStatus('案内中: '+name);
+    speak('ルート案内を開始します');
+    update();return true;
+  }catch(e){showMsg(e.message+'（通信を確認してください）');return false;}
+}
+async function reroute(){
+  if(rerouting||!dest||!pos)return;rerouting=true;setStatus('ルート再検索中…');speak('ルートを再検索します');
+  try{setRoute(await fetchRoute(pos,dest));setStatus('案内中: '+dest.name);}catch(e){setStatus('再検索に失敗');}
+  rerouting=false;
+}
+
+/* ---------- 進行計算 ---------- */
+function project(lat,lon,from,to){
+  let best={d:1e12,along:0,idx:from};
+  const k=Math.cos(rad(lat));
+  for(let i=from;i<Math.min(to,coords.length-1);i++){
+    const ax=coords[i][0],ay=coords[i][1],bx=coords[i+1][0],by=coords[i+1][1];
+    const px=(lon-ax)*k,py=lat-ay,vx=(bx-ax)*k,vy=by-ay;
+    const L2=vx*vx+vy*vy;let t=L2?(px*vx+py*vy)/L2:0;t=Math.max(0,Math.min(1,t));
+    const cx=ax+(bx-ax)*t,cy=ay+(by-ay)*t;
+    const d=hav(lat,lon,cy,cx);
+    if(d<best.d)best={d:d,along:cum[i]+t*(cum[i+1]-cum[i]),idx:i};
+  }
+  return best;
+}
+function pointAt(al){
+  let i=0;while(i<cum.length-2&&cum[i+1]<al)i++;
+  const seg=cum[i+1]-cum[i]||1,t=Math.min(1,Math.max(0,(al-cum[i])/seg));
+  const a=coords[i],b=coords[i+1];
+  const lat=a[1]+(b[1]-a[1])*t,lon=a[0]+(b[0]-a[0])*t;
+  const hd=(Math.atan2((b[0]-a[0])*Math.cos(rad(lat)),b[1]-a[1])*180/Math.PI+360)%360;
+  return {lat,lon,heading:hd};
+}
+
+/* ---------- 画面更新 ---------- */
+function update(){
+  if(pos){
+    let sp=pos.speed;
+    $('speed').textContent=sp==null?'0':Math.round(sp*3.6);
+    $('speed').classList.toggle('over',limit>0&&sp!=null&&sp*3.6>limit+2);
+    if(pos.heading!=null&&!isNaN(pos.heading)&&(sp==null||sp>1)){
+      const h=Math.round(pos.heading);$('head').innerHTML=DIRS[Math.round(h/45)%8]+'<span>'+h+'°</span>';
+    }
+  }
+  if(!route||!pos)return;
+  const pr=project(pos.lat,pos.lon,Math.max(0,lastIdx-3),Math.min(coords.length-1,lastIdx+250));
+  let p=pr;
+  if(pr.d>60){p=project(pos.lat,pos.lon,0,coords.length-1);}
+  if(p.d>50){if(++offCount>=4&&!sim)reroute();}else{offCount=0;lastIdx=p.idx;}
+  const total=cum[cum.length-1],along=Math.min(p.along,total),remain=Math.max(0,total-along);
+  let si=stepEnd.findIndex(e=>e>along+1);if(si<0)si=steps.length-1;
+  const nxt=steps[si+1],dTurn=Math.max(0,stepEnd[si]-along);
+  const [instr,ang]=describe(nxt?nxt.maneuver:{type:'arrive'});
+  const [dv,du]=fmtDist(nxt?dTurn:remain);
+  $('tdist').innerHTML=dv+'<small>'+du+'</small>';
+  $('tinstr').textContent=instr+(nxt&&nxt.name?'  '+nxt.name:'');
+  setArrow(nxt?ang:null);
+  const n2=steps[si+2];
+  if(n2){const [i2]=describe(n2.maneuver);const [v2,u2]=fmtDist(Math.max(0,stepEnd[si+1]-along));$('tnext').textContent='その先 '+v2+u2+' '+i2;}
+  else $('tnext').textContent='';
+  const [rv,ru]=fmtDist(remain);
+  $('rem').innerHTML=rv+'<small>'+ru+'</small>';
+  const secs=route.duration*(remain/(total||1));
+  $('remt').innerHTML=secs>=3600?Math.floor(secs/3600)+'<small>時間</small>'+Math.round(secs%3600/60)+'<small>分</small>':Math.max(1,Math.round(secs/60))+'<small>分</small>';
+  const eta=new Date(Date.now()+secs*1000);
+  $('eta').textContent=String(eta.getHours()).padStart(2,'0')+':'+String(eta.getMinutes()).padStart(2,'0');
+  /* 音声案内 */
+  if(nxt){
+    const key=si+':';
+    const say=(lv,txt)=>{if(!spoken[key+lv]){spoken[key+lv]=1;speak(txt);}};
+    const t=instr.replace(/ .*/,'');
+    if(dTurn<=60)say(60,'まもなく'+t+'です');
+    else if(dTurn<=220&&dTurn>60)say(200,'およそ200メートル先、'+t+'です');
+    else if(dTurn<=520&&dTurn>220)say(500,'およそ500メートル先、'+t+'です');
+  }else if(remain<40&&!spoken.arr){spoken.arr=1;speak('目的地に到着しました。案内を終了します');}
+}
+function tickClock(){
+  const d=new Date();$('clock').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+  $('trip').innerHTML=(trip/1000).toFixed(1)+'<small>km</small> '+Math.floor((Date.now()-tripStart)/60000)+'<small>分</small>';
+}
+setInterval(tickClock,1000);tickClock();
+
+/* ---------- GPS ---------- */
+function onGps(p){
+  if(sim)return;
+  const c=p.coords;
+  pos={lat:c.latitude,lon:c.longitude,speed:c.speed,heading:c.heading,acc:c.accuracy};
+  if(lastReal){const d=hav(lastReal.lat,lastReal.lon,pos.lat,pos.lon);if(d>3&&d<500)trip+=d;}
+  lastReal={lat:pos.lat,lon:pos.lon};
+  if(!route)setStatus('GPS OK（精度 '+Math.round(c.accuracy)+'m）');
+  update();
+}
+function startGps(){
+  if(!navigator.geolocation){setStatus('この端末はGPS非対応');return;}
+  if(watchId!=null)navigator.geolocation.clearWatch(watchId);
+  watchId=navigator.geolocation.watchPosition(onGps,e=>setStatus('GPSエラー: '+(e.code===1?'位置情報が許可されていません':e.message)),{enableHighAccuracy:true,maximumAge:1000,timeout:15000});
+}
+async function keepAwake(){try{if('wakeLock' in navigator){wake=await navigator.wakeLock.request('screen');}}catch(e){}}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')keepAwake();});
+
+/* ---------- デモ走行 ---------- */
+async function toggleDemo(){
+  if(sim){clearInterval(sim);sim=null;$('bDemo').classList.remove('on');setStatus('デモ終了');return;}
+  if(!route){
+    const o=pos||{lat:35.6677,lon:138.5685};
+    pos={lat:o.lat,lon:o.lon,speed:0,heading:0};
+    showMsg('');
+    setStatus('デモ用ルートを計算中…');
+    try{
+      const d={lat:o.lat+0.03,lon:o.lon+0.03};
+      dest={lat:d.lat,lon:d.lon,name:'デモ目的地'};
+      setRoute(await fetchRoute(o,d));
+    }catch(e){setStatus('デモ用ルートを取得できません（通信を確認）');return;}
+  }
+  let al=0;const total=cum[cum.length-1];
+  $('bDemo').classList.add('on');setStatus('デモ走行中（約40km/h）');
+  sim=setInterval(()=>{
+    al+=11.1;if(al>=total){al=total;}
+    const q=pointAt(al);pos={lat:q.lat,lon:q.lon,speed:11.1,heading:q.heading};
+    trip+=11.1;
+    update();
+    if(al>=total){clearInterval(sim);sim=null;$('bDemo').classList.remove('on');}
+  },1000);
+}
+
+/* ---------- 検索 ---------- */
+function showMsg(t){$('msg').textContent=t;}
+async function search(){
+  const q=$('q').value.trim();if(!q)return;
+  showMsg('検索中…');$('res').innerHTML='';
+  try{
+    const r=await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=8&countrycodes=jp&accept-language=ja&q='+encodeURIComponent(q));
+    const j=await r.json();
+    if(!j.length){showMsg('見つかりませんでした。住所や施設名を変えてみてください');return;}
+    showMsg('');
+    j.forEach(x=>{
+      const parts=x.display_name.split(', ');
+      const div=document.createElement('div');div.className='r';
+      div.textContent=parts[0];const s=document.createElement('small');s.textContent=parts.slice(1,4).join(' / ');div.appendChild(s);
+      div.onclick=()=>startRoute({lat:+x.lat,lon:+x.lon},parts[0]);
+      $('res').appendChild(div);
+    });
+  }catch(e){showMsg('検索に失敗しました（通信を確認してください）');}
+}
+
+/* ---------- ボタン ---------- */
+$('bSearch').onclick=()=>{keepAwake();$('ov').classList.add('show');setTimeout(()=>$('q').focus(),50);};
+$('bClose').onclick=()=>$('ov').classList.remove('show');
+$('bGo').onclick=search;
+$('q').addEventListener('keydown',e=>{if(e.key==='Enter')search();});
+$('bVoice').onclick=()=>{
+  voiceOn=!voiceOn;$('bVoice').textContent=voiceOn?'🔊 音声':'🔇 音声';$('bVoice').classList.toggle('on',voiceOn);
+  if(voiceOn)speak('音声案内をオンにしました');
+};
+$('bDemo').onclick=()=>{keepAwake();toggleDemo();};
+$('bStop').onclick=()=>{
+  if(sim){clearInterval(sim);sim=null;$('bDemo').classList.remove('on');}
+  route=null;dest=null;coords=[];steps=[];
+  $('tdist').innerHTML='--<small>m</small>';$('tinstr').textContent='目的地を設定してください';$('tnext').textContent='';
+  $('eta').textContent='--:--';$('rem').innerHTML='--<small>km</small>';$('remt').innerHTML='--<small>分</small>';
+  setArrow(0);setStatus('案内を終了しました');
+  if(window.speechSynthesis)speechSynthesis.cancel();
+};
+$('limit').onclick=()=>{
+  const L=[0,30,40,50,60,80,100];limit=L[(L.indexOf(limit)+1)%L.length];
+  const el=$('limit');if(limit){el.textContent=limit;el.classList.remove('off');}else{el.textContent='制限';el.classList.add('off');}
+};
+$('speed').onclick=()=>$('limit').click();
+
+startGps();keepAwake();
+</script>
+</body>
+</html>
