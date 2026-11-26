@@ -624,7 +624,21 @@ function tagInfo(t){
 }
 function renderHome(){
   renderFav();$('res').innerHTML='';
-  if(hist.length){const h=document.createElement('div');h.className='hl';h.textContent='最近の目的地';$('res').appendChild(h);hist.forEach(x=>addRow(x.name,'履歴',x,true));}
+  if(hist.length){
+    const h=document.createElement('div');h.className='hl';h.style.cssText='display:flex;align-items:center;justify-content:space-between';
+    const ht=document.createElement('span');ht.textContent='最近の目的地';h.appendChild(ht);
+    const all=document.createElement('button');all.className='sm';all.textContent='すべて削除';
+    let armed=false;
+    all.onclick=()=>{if(!armed){armed=true;all.textContent='もう一度押すと削除';all.classList.add('on');setTimeout(()=>{armed=false;all.textContent='すべて削除';all.classList.remove('on');},3000);return;}hist=[];lsSet('hud_hist',hist);renderHome();};
+    h.appendChild(all);$('res').appendChild(h);
+    hist.slice().forEach(x=>{
+      addRow(x.name,'履歴',x,true);
+      const row=$('res').lastChild;
+      const d=document.createElement('button');d.className='sm';d.textContent='削除';
+      d.onclick=()=>{hist=hist.filter(y=>y.name!==x.name);lsSet('hud_hist',hist);renderHome();};
+      row.appendChild(d);
+    });
+  }
 }
 
 /* ---------- マップ ---------- */
@@ -753,20 +767,45 @@ async function toggleDemo(){
 
 /* ---------- 検索 ---------- */
 function showMsg(t){$('msg').textContent=t;}
-async function search(){
-  const q=$('q').value.trim();if(!q)return;
-  showMsg('検索中…');$('res').innerHTML='';
-  try{
-    const r=await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=8&countrycodes=jp&accept-language=ja&extratags=1&q='+encodeURIComponent(q));
-    const j=await r.json();
-    if(!j.length){showMsg('見つかりませんでした。住所や施設名を変えてみてください');return;}
-    showMsg('');
-    j.forEach(x=>{
-      const parts=x.display_name.split(', ');
-      const inf=tagInfo(x.extratags);
-      addRow(parts[0],parts.slice(1,4).join(' / ')+(inf.line?'\n'+inf.line:''),{lat:+x.lat,lon:+x.lon,phone:inf.phone},true);
-    });
-  }catch(e){showMsg('検索に失敗しました（通信を確認してください）');}
+function normQ(q){
+  return q.normalize('NFKC').replace(/[‐‑‒–—―ーｰ−－]/g,'-').replace(/\s+/g,' ').trim();
+}
+async function gsiSearch(q){
+  const r=await fetch('https://msearch.gsi.go.jp/address-search/AddressSearch?q='+encodeURIComponent(q));
+  const j=await r.json();
+  return (j||[]).filter(x=>x&&x.geometry&&x.geometry.coordinates).map(x=>({lon:+x.geometry.coordinates[0],lat:+x.geometry.coordinates[1],name:(x.properties&&x.properties.title)||q}));
+}
+async function nomSearch(q){
+  const r=await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=8&countrycodes=jp&accept-language=ja&extratags=1&q='+encodeURIComponent(q));
+  const j=await r.json();
+  return (j||[]).map(x=>{
+    const parts=x.display_name.split(', ');
+    const inf=tagInfo(x.extratags);
+    return {lat:+x.lat,lon:+x.lon,name:parts[0],sub:parts.slice(1,4).join(' / ')+(inf.line?'\n'+inf.line:''),phone:inf.phone};
+  });
+}
+let srchSeq=0,sugT=0;
+async function search(quiet){
+  quiet=quiet===true;
+  const q=normQ($('q').value);if(!q)return;
+  const my=++srchSeq;
+  if(!quiet){showMsg('検索中…');$('res').innerHTML='';}
+  const addrLike=/[0-9]|丁目|番地|番|[都道府県市区町村郡]/.test(q);
+  const [g,n]=await Promise.allSettled([gsiSearch(q),nomSearch(q)]);
+  const G=(g.status==='fulfilled'?g.value:[]).slice(0,addrLike?6:3).map(x=>({lat:x.lat,lon:x.lon,name:x.name,sub:'住所'}));
+  if(my!==srchSeq||normQ($('q').value)!==q)return;
+  const N=n.status==='fulfilled'?n.value:[];
+  const all=addrLike?G.concat(N):N.concat(G);
+  const out=[];
+  all.forEach(x=>{if(!out.some(y=>hav(y.lat,y.lon,x.lat,x.lon)<30&&y.name===x.name))out.push(x);});
+  $('res').innerHTML='';
+  if(!out.length){
+    if(g.status==='rejected'&&n.status==='rejected')showMsg('検索に失敗しました（通信を確認してください）');
+    else showMsg('見つかりませんでした。「甲府市丸の内1-1-1」のように市町村から入れるか、施設名で試してください');
+    return;
+  }
+  showMsg('');
+  out.slice(0,10).forEach(x=>addRow(x.name,x.sub,{lat:x.lat,lon:x.lon,phone:x.phone},true));
 }
 
 /* ---------- 危険箇所（オービス・踏切） ---------- */
@@ -1240,10 +1279,16 @@ async function loadNearby(c,list){
 /* ---------- ボタン ---------- */
 function openSearch(mode){searchMode=mode;keepAwake();showMsg(mode==='via'?'経由地を検索してください':'');renderHome();$('ov').classList.add('show');setTimeout(()=>$('q').focus(),50);}
 $('bSearch').onclick=()=>openSearch('dest');
-$('q').addEventListener('input',()=>{if(!$('q').value.trim())renderHome();});
+$('q').addEventListener('input',()=>{
+  clearTimeout(sugT);
+  const v=normQ($('q').value);
+  if(!v){srchSeq++;showMsg('');renderHome();return;}
+  if(v.length<2)return;
+  sugT=setTimeout(()=>search(true),650);
+});
 $('bClose').onclick=()=>{$('ov').classList.remove('show');searchMode='dest';};
-$('bGo').onclick=search;
-$('q').addEventListener('keydown',e=>{if(e.key==='Enter')search();});
+$('bGo').onclick=()=>{clearTimeout(sugT);search();};
+$('q').addEventListener('keydown',e=>{if(e.key==='Enter'){clearTimeout(sugT);search();}});
 $('bMap').onclick=()=>{
   mapMode=!mapMode;
   if(mapMode&&!initMap()){mapMode=false;return;}
