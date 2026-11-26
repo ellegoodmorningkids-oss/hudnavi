@@ -115,6 +115,10 @@ body.mapmode #fab{display:flex}
 #zMe{display:none}
 #zMe.show{display:block;border-color:var(--ac)}
 #map{touch-action:none}
+body.mapmode #app{pointer-events:none}
+body.mapmode #app>*{pointer-events:none}
+body.mapmode #turn,body.mapmode #speedc,body.mapmode #info,body.mapmode #bar button{pointer-events:auto}
+body.mapmode #bar{pointer-events:none}
 body.mapmode #gball{display:none!important}
 .pin{width:3.6vh;height:3.6vh;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#ff3b4d;border:.5vh solid #fff;box-shadow:0 0 1.6vh rgba(255,59,77,.8)}
 .pin.via{background:#ffc400;width:3vh;height:3vh}
