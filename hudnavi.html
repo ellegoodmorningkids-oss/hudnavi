@@ -141,7 +141,8 @@ body.mapmode #addr{display:none}
 body.mapmode #map{display:block}
 #map canvas{filter:invert(1) hue-rotate(180deg) brightness(calc(.85*var(--b,1)*var(--nm,1))) contrast(.95)}
 #app{position:relative;z-index:1}
-.car{width:0;height:0;border-left:2.6vh solid transparent;border-right:2.6vh solid transparent;border-bottom:7vh solid #3dff8b;filter:drop-shadow(0 0 6px #000);transform:translateY(-1vh)}
+.car{width:10vh;height:10vh;filter:drop-shadow(0 0 5px rgba(0,0,0,.9))}
+.car svg{width:100%;height:100%;display:block}
 .maplibregl-ctrl-attrib{font-size:calc(2.34vh*var(--fs,1))!important;opacity:.7}
 @media (orientation:landscape){
 body.mapmode #app{grid-template-columns:36vw 1fr 22vw}
@@ -649,7 +650,8 @@ function initMap(){
   ['dragstart','zoomstart'].forEach(ev=>map.on(ev,e=>{if(e.originalEvent){overviewUntil=0;setFree(true);}}));
   ['moveend','touchend'].forEach(ev=>map.on(ev,e=>{if(freeUntil)freeUntil=Date.now()+30000;}));
   const el=document.createElement('div');el.className='car';
-  carMk=new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat(c).addTo(map);
+  el.innerHTML='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#19e3ff" stroke-width="1.6" stroke-dasharray="5 6" opacity=".9"/><circle cx="50" cy="50" r="32" fill="rgba(25,227,255,.2)" stroke="#19e3ff" stroke-width="5"/><polygon points="50,28 63,66 50,58 37,66" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>';
+  carMk=new maplibregl.Marker({element:el,anchor:'center'}).setLngLat(c).addTo(map);
   return true;
 }
 let destMk=null,viaMks=[];
