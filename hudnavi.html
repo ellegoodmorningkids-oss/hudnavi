@@ -4,111 +4,233 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="HUDナビ">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="theme-color" content="#000000">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" type="image/png" href="data:image/png;base64,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">
 <title>HUDナビ</title>
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <style>
+:root{--ac:#19e3ff;--ac2:#3dff8b;--dim:#71818e;--line:rgba(255,255,255,.10);--glass:rgba(255,255,255,.05)}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;background:#000;color:#fff;font-family:-apple-system,"Hiragino Sans",sans-serif;overflow:hidden;user-select:none;-webkit-user-select:none}
-#app{height:100%;display:grid;grid-template-columns:1.15fr 1fr .85fr;grid-template-rows:1fr auto;gap:0 2vw;
-  padding:max(2vh,env(safe-area-inset-top)) max(3vw,env(safe-area-inset-right)) max(1.5vh,env(safe-area-inset-bottom)) max(3vw,env(safe-area-inset-left))}
+html,body{height:100%;color:#fff;font-family:ui-rounded,"SF Pro Rounded",-apple-system,"Hiragino Sans",sans-serif;overflow:hidden;user-select:none;-webkit-user-select:none}
+body{background:radial-gradient(130% 100% at 50% -10%,#0b1620 0%,#03060a 55%,#000 100%)}
+#app{height:100%;display:grid;grid-template-columns:1.12fr 1.05fr .83fr;grid-template-rows:1fr auto;gap:0 2.2vw;
+  padding:max(2.2vh,env(safe-area-inset-top)) max(3vw,env(safe-area-inset-right)) max(1.5vh,env(safe-area-inset-bottom)) max(3vw,env(safe-area-inset-left))}
 .col{display:flex;flex-direction:column;justify-content:center;min-width:0}
-.lbl{font-size:2.6vh;color:#6b7a86;letter-spacing:.05em}
-/* turn */
-#turn{align-items:flex-start}
-#arrowwrap{height:30vh;width:30vh;margin-bottom:1vh}
-#arrow{width:100%;height:100%;transition:transform .25s}
-#arrow path,#arrow circle{fill:#3dff8b}
-#tdist{font-size:15vh;font-weight:800;line-height:1;color:#3dff8b;font-variant-numeric:tabular-nums;white-space:nowrap}
-#tdist small{font-size:6vh;font-weight:600;margin-left:.6vh}
-#tinstr{font-size:5vh;font-weight:700;margin-top:1vh;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
-#tnext{font-size:3.4vh;color:#9fb0bd;margin-top:1.2vh;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-/* speed */
+.lbl{font-size:calc(2vh*var(--fs,1));color:var(--dim);letter-spacing:.2em;font-weight:600}
+/* turn card */
+#turn{align-self:center;align-items:flex-start;background:linear-gradient(160deg,rgba(25,227,255,.10),rgba(255,255,255,.03) 55%);border:1px solid var(--line);border-radius:3.4vh;padding:2.2vh 2.2vw;box-shadow:0 0 5vh rgba(25,227,255,.07) inset}
+#arrowwrap{height:22vh;width:22vh;margin-bottom:.6vh;color:var(--ac)}
+#arrow{width:100%;height:100%;filter:drop-shadow(0 0 1.4vh rgba(25,227,255,.6))}
+#tdist{font-size:calc(13vh*var(--fs,1));font-weight:700;line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+#tdist small{font-size:calc(5vh*var(--fs,1));font-weight:600;margin-left:.8vh;color:var(--ac)}
+#tinstr{font-size:calc(4.4vh*var(--fs,1));font-weight:700;margin-top:1.2vh;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;max-width:100%;color:#e6f1f7;line-height:1.2}
+#tnext{font-size:calc(3vh*var(--fs,1));color:var(--dim);margin-top:1vh;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+/* speed gauge */
 #speedc{align-items:center;text-align:center}
-#speed{font-size:34vh;font-weight:800;line-height:.95;font-variant-numeric:tabular-nums}
-#speed.over{color:#ff3b3b;animation:bl .5s steps(2) infinite}
-@keyframes bl{50%{opacity:.35}}
-#kmh{font-size:5vh;color:#6b7a86;margin-top:.5vh}
-#limit{margin-top:2vh;border:.9vh solid #ff3b3b;border-radius:50%;width:11vh;height:11vh;display:flex;align-items:center;justify-content:center;font-size:5vh;font-weight:800;background:#111}
-#limit.off{border-color:#2a3239;color:#3b4650;font-size:2.6vh}
-#head{font-size:5vh;margin-top:2vh;color:#e8f0f5}
-#head span{color:#6b7a86;font-size:3.4vh;margin-left:1vh}
+#gauge{position:relative;width:54vh;height:54vh;max-width:100%}
+#gauge svg{width:100%;height:100%;overflow:visible}
+#gauge circle{fill:none;stroke-width:9}
+#gauge .trk{stroke:rgba(255,255,255,.09)}
+#gauge #gv{stroke:var(--ac);filter:drop-shadow(0 0 1.2vh rgba(25,227,255,.7));transition:stroke-dasharray .6s linear,stroke .3s}
+#gauge #gl{stroke:#fff;stroke-width:15}
+#gauge.over #gv{stroke:#ff3b4d;filter:drop-shadow(0 0 1.6vh rgba(255,59,77,.85))}
+#gc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-bottom:2vh}
+#speed{font-size:calc(21vh*var(--fs,1));font-weight:600;line-height:.9;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+#speed.over{color:#ff4b5b;animation:bl .55s steps(2) infinite}
+@keyframes bl{50%{opacity:.4}}
+#kmh{font-size:calc(3.2vh*var(--fs,1));color:var(--dim);margin-top:1vh;letter-spacing:.25em;font-weight:600}
+#sub{display:flex;align-items:center;gap:2.4vw;margin-top:-5vh;position:relative;z-index:2}
+#limit{border:.8vh solid #ff3b4d;border-radius:50%;width:9.5vh;height:9.5vh;display:flex;align-items:center;justify-content:center;font-size:calc(4.4vh*var(--fs,1));font-weight:800;background:#0b0f13;box-shadow:0 0 2vh rgba(255,59,77,.25)}
+#limit.off{border-color:rgba(255,255,255,.14);color:#4b5964;font-size:calc(2.2vh*var(--fs,1));letter-spacing:.08em;box-shadow:none;font-weight:700}
+#head{font-size:calc(4.6vh*var(--fs,1));font-weight:700;color:#e8f0f5;white-space:nowrap}
+#head span{color:var(--dim);font-size:calc(2.8vh*var(--fs,1));margin-left:.8vh;font-weight:600}
 /* info */
-#info{gap:2.2vh;align-items:flex-end;text-align:right}
-.v{font-size:7.5vh;font-weight:700;line-height:1.05;font-variant-numeric:tabular-nums;white-space:nowrap}
-.v small{font-size:3.6vh;color:#9fb0bd;font-weight:600;margin-left:.5vh}
+#info{gap:1.8vh;align-items:flex-end;text-align:right;justify-content:center}
+#info>div{width:100%;padding-bottom:1.5vh;border-bottom:1px solid var(--line)}
+#info>div:last-child{border-bottom:0}
+.v{font-size:calc(6.8vh*var(--fs,1));font-weight:700;line-height:1.05;font-variant-numeric:tabular-nums;white-space:nowrap;margin-top:.3vh}
+.v small{font-size:calc(3vh*var(--fs,1));color:var(--dim);font-weight:600;margin-left:.5vh}
+#eta{color:var(--ac2)}
 #clock{color:#ffd24a}
 /* bar */
-#bar{grid-column:1/-1;display:flex;gap:1.6vw;align-items:center;padding-top:1vh}
-button{font:inherit;color:#e8f0f5;background:#14191e;border:1px solid #2a3239;border-radius:2vh;padding:1.6vh 2.6vw;font-size:3.2vh}
-button.on{background:#0e3a22;border-color:#3dff8b;color:#3dff8b}
-button:active{background:#22303a}
-#status{margin-left:auto;font-size:2.8vh;color:#6b7a86;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#bar{grid-column:1/-1;display:flex;gap:1vw;align-items:stretch;padding-top:1.2vh}
+#status{position:fixed;top:.9vh;left:50%;transform:translateX(-50%);font-size:calc(2.2vh*var(--fs,1));color:var(--dim);white-space:nowrap;max-width:34vw;overflow:hidden;text-overflow:ellipsis;z-index:3;letter-spacing:.06em;text-shadow:0 0 6px #000}
+button{--cut:1.7vh;font:inherit;position:relative;isolation:isolate;color:#d7e3ea;background:rgba(255,255,255,.2);border:0;border-radius:0;padding:1.6vh 2.4vw;font-size:calc(3vh*var(--fs,1));display:inline-flex;align-items:center;justify-content:center;gap:.9vw;font-weight:700;letter-spacing:.04em;
+  clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut))}
+button::before{content:"";position:absolute;inset:1.5px;background:linear-gradient(180deg,#101c25,#070c11);clip-path:polygon(var(--cut) 0,100% 0,100% calc(100% - var(--cut)),calc(100% - var(--cut)) 100%,0 100%,0 var(--cut));z-index:-1}
+button>*{position:relative}
+button svg{width:3.8vh;height:3.8vh;fill:none;stroke:currentColor;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round;flex:none}
+button.on{background:var(--ac);color:var(--ac)}
+button.on::before{background:linear-gradient(180deg,#0e3040,#07171f)}
+button:active{filter:brightness(1.5)}
+button.on:active::before{filter:none}
+#bar button{flex:1;height:12.5vh;min-width:0;padding:0 .4vw;font-size:calc(2.9vh*var(--fs,1))}
 /* search overlay */
-#ov{position:fixed;inset:0;background:#05080aF2;display:none;flex-direction:column;padding:max(3vh,env(safe-area-inset-top)) max(4vw,env(safe-area-inset-right)) 2vh max(4vw,env(safe-area-inset-left));z-index:5}
+#ov{position:fixed;inset:0;background:rgba(3,6,10,.96);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:none;flex-direction:column;padding:max(3vh,env(safe-area-inset-top)) max(4vw,env(safe-area-inset-right)) 2vh max(4vw,env(safe-area-inset-left));z-index:5}
 #ov.show{display:flex}
-#srow{display:flex;gap:2vw}
-#q{flex:1;font-size:4vh;padding:1.6vh 2vw;border-radius:2vh;border:1px solid #3a4650;background:#0f1418;color:#fff;min-width:0}
-#res{margin-top:2vh;overflow:auto;flex:1}
-.r{padding:2vh 2vw;border-bottom:1px solid #1d252b;font-size:3.6vh}
-.r small{display:block;color:#6b7a86;font-size:2.8vh;margin-top:.4vh}
-#msg{color:#ffd24a;font-size:3vh;margin-top:1.5vh;min-height:3.6vh}
-/* portrait fallback */
+#srow{display:flex;gap:1.6vw}
+#q{flex:1;font-size:calc(3.8vh*var(--fs,1));padding:1.3vh 2vw;border-radius:99px;border:1px solid rgba(25,227,255,.4);background:rgba(255,255,255,.05);color:#fff;min-width:0;outline:none}
+#res{margin-top:1.4vh;overflow:auto;flex:1}
+.r{display:flex;align-items:center;gap:2vw;padding:1.7vh 1.6vw;border-bottom:1px solid var(--line);font-size:calc(3.4vh*var(--fs,1))}
+.rt{flex:1;min-width:0}
+.r small{display:block;color:var(--dim);font-size:calc(2.4vh*var(--fs,1));margin-top:.4vh}
+button.sm{--cut:1.1vh;padding:1.1vh 1.8vw;font-size:calc(2.8vh*var(--fs,1))}
+#fav{display:flex;gap:1.6vw;margin-top:1.4vh}
+.hl{color:var(--dim);font-size:calc(2.4vh*var(--fs,1));letter-spacing:.2em;margin:1.4vh 0 .4vh}
+#msg{color:#ffd24a;font-size:calc(2.8vh*var(--fs,1));margin-top:1.2vh;min-height:3.4vh}
+body{--na:1;--nm:1}
+body.night{--na:.72;--nm:.7}
+#app{filter:brightness(calc(var(--b,1)*var(--na,1)))}
+/* sheets */
+#sh{position:fixed;inset:0;background:rgba(3,6,10,.97);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:none;flex-direction:column;padding:max(3vh,env(safe-area-inset-top)) max(4vw,env(safe-area-inset-right)) 2vh max(4vw,env(safe-area-inset-left));z-index:6}
+#sh.show{display:flex}
+#shh{display:flex;align-items:center;justify-content:space-between;gap:2vw}
+#sht{font-size:calc(4vh*var(--fs,1));font-weight:700}
+#shm{color:#ffd24a;font-size:calc(2.6vh*var(--fs,1));min-height:3.2vh;margin:.8vh 0}
+#shb{overflow:auto;flex:1}
+.chips{display:flex;gap:1.2vw;margin:1vh 0 1.2vh;flex-wrap:wrap}
+.tg{display:grid;grid-template-columns:repeat(5,1fr);gap:1.1vw;margin-top:1vh}
+.tg button{flex-direction:column;height:22vh;gap:1.2vh;font-size:calc(2.4vh*var(--fs,1));--cut:1.8vh;padding:0 .3vw;text-align:center;line-height:1.25}
+.tg button svg{width:5vh;height:5vh}
+button.card{width:100%;justify-content:space-between;padding:2.2vh 2.4vw;font-size:calc(3.3vh*var(--fs,1));margin-bottom:1.2vh;text-align:left}
+button.card span:last-child{font-size:calc(2.8vh*var(--fs,1));color:var(--dim);font-weight:600}
+button.card.on span:last-child{color:var(--ac)}
+#alert{position:fixed;top:4.4vh;left:50%;transform:translateX(-50%);display:none;align-items:center;gap:1vw;padding:1.1vh 2.6vw;font-size:calc(3.4vh*var(--fs,1));font-weight:800;color:#241800;background:#ffc400;z-index:4;white-space:nowrap;box-shadow:0 0 3vh rgba(255,196,0,.45);clip-path:polygon(1.3vh 0,100% 0,100% calc(100% - 1.3vh),calc(100% - 1.3vh) 100%,0 100%,0 1.3vh);animation:bl 1s steps(2) infinite}
+#alert.show{display:flex}
+#alert svg{width:4vh;height:4vh;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+#gball{display:none;width:9.5vh;height:9.5vh;border-radius:50%;border:1px solid var(--line);position:relative;flex:none;background:radial-gradient(circle,rgba(255,255,255,.05),transparent 70%)}
+#gball.on{display:block}
+#gball::before,#gball::after{content:"";position:absolute;background:rgba(255,255,255,.13)}
+#gball::before{left:50%;top:10%;bottom:10%;width:1px}
+#gball::after{top:50%;left:10%;right:10%;height:1px}
+#gdot{position:absolute;left:50%;top:50%;width:2.6vh;height:2.6vh;margin:-1.3vh 0 0 -1.3vh;border-radius:50%;background:var(--ac2);box-shadow:0 0 1.6vh var(--ac2);transition:transform .4s}
+#fab{position:fixed;right:max(3vw,env(safe-area-inset-right));bottom:17vh;display:none;flex-direction:column;gap:1vh;z-index:3}
+body.mapmode #fab{display:flex}
+#fab button{width:10vh;height:10vh;padding:0;--cut:1.5vh}
+body.mapmode #gball{display:none!important}
+.pin{width:3.6vh;height:3.6vh;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#ff3b4d;border:.5vh solid #fff;box-shadow:0 0 1.6vh rgba(255,59,77,.8)}
+.pin.via{background:#ffc400;width:3vh;height:3vh}
+#wx{position:fixed;top:.9vh;right:max(3vw,env(safe-area-inset-right));text-align:right;font-size:calc(2.5vh*var(--fs,1));color:var(--dim);z-index:3;letter-spacing:.04em;line-height:1.4;text-shadow:0 0 6px #000;pointer-events:none}
+#wx.warn #wx1{color:#ffc400;font-weight:700}
+body.mapmode #wx{display:none}
+#note{position:fixed;top:13.5vh;left:50%;transform:translateX(-50%);display:none;z-index:4;padding:1.2vh 2.4vw;font-size:calc(3vh*var(--fs,1));font-weight:700;color:#031a22;background:var(--ac);max-width:62vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 0 3vh rgba(25,227,255,.4);clip-path:polygon(1.2vh 0,100% 0,100% calc(100% - 1.2vh),calc(100% - 1.2vh) 100%,0 100%,0 1.2vh)}
+#note.show{display:block}
+#shb,#res{scrollbar-width:thin;scrollbar-color:#2a3a46 transparent}
+#shb::-webkit-scrollbar,#res::-webkit-scrollbar{width:5px}
+#shb::-webkit-scrollbar-thumb,#res::-webkit-scrollbar-thumb{background:#2a3a46;border-radius:9px}
+#shb::-webkit-scrollbar-track,#res::-webkit-scrollbar-track{background:transparent}
+#addr{position:fixed;top:.9vh;left:max(3vw,env(safe-area-inset-left));font-size:calc(2.5vh*var(--fs,1));color:var(--dim);z-index:3;max-width:29vw;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 0 6px #000;letter-spacing:.04em;pointer-events:none}
+body.mapmode #addr{display:none}
+#hwy{position:fixed;left:50%;transform:translateX(-50%);bottom:15.5vh;display:none;z-index:3;padding:1vh 2.2vw;font-size:calc(2.8vh*var(--fs,1));font-weight:700;color:#e8f7ff;background:rgba(10,30,40,.88);border:1px solid rgba(25,227,255,.45);white-space:nowrap;max-width:94vw;overflow:hidden;text-overflow:ellipsis}
+#hwy.show{display:block}
+#bk{width:100%;height:30vh;background:rgba(255,255,255,.05);border:1px solid var(--line);color:#cfe0ea;font-size:calc(2.2vh*var(--fs,1));padding:1.2vh 1.4vw;resize:none;border-radius:0;outline:none;font-family:ui-monospace,Menlo,monospace}
+/* map */
+#map{position:fixed;inset:0;display:none;z-index:0;background:#111}
+body.mapmode #map{display:block}
+#map canvas{filter:invert(1) hue-rotate(180deg) brightness(calc(.85*var(--b,1)*var(--nm,1))) contrast(.95)}
+#app{position:relative;z-index:1}
+.car{width:0;height:0;border-left:2.6vh solid transparent;border-right:2.6vh solid transparent;border-bottom:7vh solid #3dff8b;filter:drop-shadow(0 0 6px #000);transform:translateY(-1vh)}
+.maplibregl-ctrl-attrib{font-size:calc(1.8vh*var(--fs,1))!important;opacity:.7}
+@media (orientation:landscape){
+body.mapmode #app{grid-template-columns:36vw 1fr 22vw}
+body.mapmode #turn,body.mapmode #speedc,body.mapmode #info{background:rgba(2,6,10,.78);border:1px solid var(--line);border-radius:2.6vh;padding:1.2vh 1.6vw}
+body.mapmode #turn{grid-column:1;grid-row:1;align-self:start;justify-content:flex-start}
+body.mapmode #arrowwrap{height:13vh;width:13vh;margin-bottom:.3vh}
+body.mapmode #tdist{font-size:calc(8.5vh*var(--fs,1))}body.mapmode #tdist small{font-size:calc(3.6vh*var(--fs,1))}
+body.mapmode #tinstr{font-size:calc(3.2vh*var(--fs,1));margin-top:.4vh}
+body.mapmode #tnext,body.mapmode #head,body.mapmode #kmh{display:none}
+body.mapmode #speedc{grid-column:1;grid-row:1;align-self:end;justify-self:start;align-items:flex-start;padding:1vh 1.4vw}
+body.mapmode #gauge{width:25vh;height:25vh}
+body.mapmode #speed{font-size:calc(9.5vh*var(--fs,1))}
+body.mapmode #gc{padding-bottom:0}
+body.mapmode #sub{margin-top:-3.5vh;margin-left:auto;margin-right:-1vw}
+body.mapmode #limit{width:6.5vh;height:6.5vh;font-size:calc(2.8vh*var(--fs,1));border-width:.6vh}
+body.mapmode #info{grid-column:3;grid-row:1;align-self:start;gap:.8vh}
+body.mapmode .v{font-size:calc(4.8vh*var(--fs,1))}body.mapmode .v small{font-size:calc(2.4vh*var(--fs,1))}body.mapmode .lbl{font-size:calc(1.8vh*var(--fs,1))}
+body.mapmode #info>div{padding-bottom:.8vh}
+body.mapmode .hm{display:none}
+body.mapmode #bar{margin-top:1vh}
+}
 @media (orientation:portrait){
-  #app{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto auto}
-  #turn,#speedc,#info{grid-column:1/-1;align-items:center;text-align:center}
-  #arrowwrap{height:16vh;width:16vh}#tdist{font-size:9vh}#speed{font-size:18vh}#info{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:2vh 6vw}
-  #tinstr{font-size:3.4vh}#limit{width:7vh;height:7vh;font-size:3.4vh}#head{font-size:3.4vh}.v{font-size:5vh}.lbl{font-size:2vh}
-  button{font-size:2.2vh;padding:1.2vh 3vw}#status{display:none}
+  #app{grid-template-columns:1fr;grid-template-rows:auto auto auto auto;overflow:auto}
+  #turn,#speedc,#info{align-items:center;text-align:center}
+  #arrowwrap{height:16vh;width:16vh}#tdist{font-size:calc(9vh*var(--fs,1))}#gauge{width:42vh;height:42vh}#speed{font-size:calc(15vh*var(--fs,1))}
+  #info{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:2vh 6vw}#info>div{width:auto;border:0}
+  #tinstr{font-size:calc(3.4vh*var(--fs,1))}.v{font-size:calc(5vh*var(--fs,1))}
 }
 </style>
 </head>
 <body>
+<div id="map"></div>
 <div id="app">
   <div id="turn" class="col">
-    <div id="arrowwrap">
-      <svg id="arrow" viewBox="0 0 100 100"><path id="ap" d="M50 6 L84 46 H61 V94 H39 V46 H16 Z"/><circle id="ac" cx="50" cy="50" r="30" style="display:none"/></svg>
-    </div>
+    <div id="arrowwrap"><svg id="arrow" viewBox="0 0 100 100"></svg></div>
     <div id="tdist">--<small>m</small></div>
     <div id="tinstr">目的地を設定してください</div>
     <div id="tnext"></div>
   </div>
   <div id="speedc" class="col">
-    <div id="speed">0</div>
-    <div id="kmh">km/h</div>
-    <div id="limit" class="off">制限</div>
-    <div id="head">--<span></span></div>
+    <div id="gauge">
+      <svg viewBox="0 0 200 200">
+        <circle class="trk" cx="100" cy="100" r="86" pathLength="100" stroke-dasharray="75 25" transform="rotate(135 100 100)"/>
+        <circle id="gv" cx="100" cy="100" r="86" pathLength="100" stroke-dasharray="0 100" transform="rotate(135 100 100)"/>
+        <circle id="gl" cx="100" cy="100" r="86" pathLength="100" stroke-dasharray="1 100" stroke-dashoffset="0" transform="rotate(135 100 100)" style="display:none"/>
+      </svg>
+      <div id="gc"><div id="speed">0</div><div id="kmh">KM/H</div></div>
+    </div>
+    <div id="sub"><div id="limit" class="off">AUTO</div><div id="head">--<span></span></div><div id="gball"><div id="gdot"></div></div></div>
   </div>
   <div id="info" class="col">
-    <div><div class="lbl">到着予定</div><div class="v" id="eta">--:--</div></div>
-    <div><div class="lbl">目的地まで</div><div class="v" id="rem">--<small>km</small></div></div>
-    <div><div class="lbl">残り時間</div><div class="v" id="remt">--<small>分</small></div></div>
-    <div><div class="lbl">現在時刻</div><div class="v" id="clock">--:--</div></div>
-    <div><div class="lbl">走行距離 / 経過</div><div class="v" id="trip" style="font-size:4.6vh">0.0<small>km</small> 0<small>分</small></div></div>
+    <div><div class="lbl">ETA</div><div class="v" id="eta">--:--</div></div>
+    <div><div class="lbl">DISTANCE</div><div class="v" id="rem">--<small>km</small></div></div>
+    <div><div class="lbl">TIME LEFT</div><div class="v" id="remt">--<small>分</small></div></div>
+    <div class="hm"><div class="lbl">CLOCK</div><div class="v" id="clock" title="タップで昼夜切替">--:--</div></div>
+    <div class="hm"><div class="lbl">TRIP</div><div class="v" id="trip" style="font-size:4.4vh">0.0<small>km</small> 0<small>分</small></div></div>
   </div>
   <div id="bar">
-    <button id="bSearch">🔍 目的地</button>
-    <button id="bVoice">🔇 音声</button>
-    <button id="bDemo">▶ デモ走行</button>
-    <button id="bStop">✕ 案内終了</button>
+    <button id="bSearch"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l5 5"/></svg><span>目的地</span></button>
+    <button id="bMap"><svg viewBox="0 0 24 24"><path d="M3 6l6-2 6 2 6-2v14l-6 2-6-2-6 2z"/><path d="M9 4v14M15 6v14"/></svg><span>マップ</span></button>
+    <button id="bVoice"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 010 7"/></svg><span>音声 OFF</span></button>
+    <button id="bNear"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.5-6-11a6 6 0 0112 0c0 5.5-6 11-6 11z"/><circle cx="12" cy="10" r="2"/></svg><span>周辺</span></button>
+    <button id="bMenu"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1"/></svg><span>メニュー</span></button>
+    <button id="bStop"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span>終了</span></button>
     <div id="status">GPS待機中…</div>
   </div>
 </div>
 
 <div id="ov">
   <div id="srow"><input id="q" type="search" placeholder="目的地（例：甲府駅、住所、施設名）" enterkeyhint="search"><button id="bGo">検索</button><button id="bClose">閉じる</button></div>
+  <div id="fav"></div>
   <div id="msg"></div>
   <div id="res"></div>
 </div>
-
+<div id="sh"><div id="shh"><div id="sht"></div><button id="shx">閉じる</button></div><div id="shm"></div><div id="shb"></div></div>
+<div id="alert"></div>
+<div id="addr"></div>
+<div id="hwy"></div>
+<div id="note"></div>
+<div id="wx"><div id="wx1"></div><div id="wx2"></div></div>
+<video id="nosleep" muted playsinline loop style="position:fixed;left:0;bottom:0;width:2px;height:2px;opacity:.02;pointer-events:none"></video>
+<div id="fab">
+  <button id="zIn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+  <button id="zOut"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+  <button id="zFit"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+</div>
 <script>
 const $=id=>document.getElementById(id);
 const R=6371000, rad=d=>d*Math.PI/180;
 function hav(a,b,c,d){const dl=rad(c-a),dn=rad(d-b);const x=Math.sin(dl/2)**2+Math.cos(rad(a))*Math.cos(rad(c))*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(x));}
 
 let pos=null,lastReal=null,route=null,coords=[],cum=[],steps=[],stepEnd=[],dest=null;
-let lastIdx=0,offCount=0,rerouting=false,voiceOn=false,spoken={},limit=0,trip=0,tripStart=Date.now();
+let lastIdx=0,offCount=0,rerouting=false,voiceOn=false,spoken={},manualLimit=0,autoLimit=0,ema=0,lastWarn=0,nightMode="auto",trip=0,tripStart=Date.now();
 let sim=null,watchId=null,wake=null;
+const NOSLEEP='AAAAIGZ0eXBpc29tAAACAGlzb21pc28yYXZjMW1wNDEAAAOwbW9vdgAAAGxtdmhkAAAAAAAAAAAAAAAAAAAD6AAAB9AAAQAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAtp0cmFrAAAAXHRraGQAAAADAAAAAAAAAAAAAAABAAAAAAAAB9AAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAEAAAABAAAAAAAAkZWR0cwAAABxlbHN0AAAAAAAAAAEAAAfQAAAQAAABAAAAAAJSbWRpYQAAACBtZGhkAAAAAAAAAAAAAAAAAAAoAAAAUABVxAAAAAAALWhkbHIAAAAAAAAAAHZpZGUAAAAAAAAAAAAAAABWaWRlb0hhbmRsZXIAAAAB/W1pbmYAAAAUdm1oZAAAAAEAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAb1zdGJsAAAAvXN0c2QAAAAAAAAAAQAAAK1hdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAEAAQABIAAAASAAAAAAAAAABFUxhdmM2MC4zMS4xMDIgbGlieDI2NAAAAAAAAAAAAAAAGP//AAAAM2F2Y0MBZAAK/+EAGGdkAAqs2UQmwEQAAAMABAAAAwAoPEiWWAEABGjvvLD9+PgAAAAAEHBhc3AAAAABAAAAAQAAABRidHJ0AAAAAAAADSQAAA0kAAAAGHN0dHMAAAAAAAAAAQAAAAoAAAgAAAAAFHN0c3MAAAAAAAAAAQAAAAEAAABgY3R0cwAAAAAAAAAKAAAAAQAAEAAAAAABAAAoAAAAAAEAABAAAAAAAQAAAAAAAAABAAAIAAAAAAEAACgAAAAAAQAAEAAAAAABAAAAAAAAAAEAAAgAAAAAAQAAEAAAAAAcc3RzYwAAAAAAAAABAAAAAQAAAAoAAAABAAAAPHN0c3oAAAAAAAAAAAAAAAoAAALeAAAADQAAAAsAAAALAAAACwAAAA4AAAANAAAACwAAAAsAAAAMAAAAFHN0Y28AAAAAAAAAAQAAA+AAAABidWR0YQAAAFptZXRhAAAAAAAAACFoZGxyAAAAAAAAAABtZGlyYXBwbAAAAAAAAAAAAAAAAC1pbHN0AAAAJal0b28AAAAdZGF0YQAAAAEAAAAATGF2ZjYwLjE2LjEwMAAAAAhmcmVlAAADUW1kYXQAAAK3BgX//7PcRem95tlIt5Ys2CDZI+7veDI2NCAtIGNvcmUgMTY0IHIzMTA4IDMxZTE5ZjkgLSBILjI2NC9NUEVHLTQgQVZDIGNvZGVjIC0gQ29weWxlZnQgMjAwMy0yMDIzIC0gaHR0cDovL3d3dy52aWRlb2xhbi5vcmcveDI2NC5odG1sIC0gb3B0aW9uczogY2FiYWM9MSByZWY9MSBkZWJsb2NrPTE6MDowIGFuYWx5c2U9MHgzOjB4MyBtZT1oZXggc3VibWU9MiBwc3k9MSBwc3lfcmQ9MS4wMDowLjAwIG1peGVkX3JlZj0wIG1lX3JhbmdlPTE2IGNocm9tYV9tZT0xIHRyZWxsaXM9MCA4eDhkY3Q9MSBjcW09MCBkZWFkem9uZT0yMSwxMSBmYXN0X3Bza2lwPTEgY2hyb21hX3FwX29mZnNldD0wIHRocmVhZHM9MiBsb29rYWhlYWRfdGhyZWFkcz0xIHNsaWNlZF90aHJlYWRzPTAgbnI9MCBkZWNpbWF0ZT0xIGludGVybGFjZWQ9MCBibHVyYXlfY29tcGF0PTAgc3RpdGNoYWJsZT0xIGNvbnN0cmFpbmVkX2ludHJhPTAgYmZyYW1lcz0zIGJfcHlyYW1pZD0yIGJfYWRhcHQ9MSBiX2JpYXM9MCBkaXJlY3Q9MSB3ZWlnaHRiPTEgb3Blbl9nb3A9MCB3ZWlnaHRwPTEga2V5aW50PTI1MCBrZXlpbnRfbWluPTUgc2NlbmVjdXQ9NDAgaW50cmFfcmVmcmVzaD0wIHJjX2xvb2thaGVhZD0xMCByYz1jcmYgbWJ0cmVlPTEgY3JmPTQwLjAgcWNvbXA9MC42MCBxcG1pbj0wIHFwbWF4PTY5IHFwc3RlcD00IGlwX3JhdGlvPTEuNDAgYXE9MToxLjAwAIAAAAAfZYiEAF+JAbD1v5leIj97fMhps0clwrkjBgvRFOCJUQAAAAlBmiQYif8AMiAAAAAHQZ5CQl84IQAAAAcBnmFF/zugAAAABwGeY0X/O6EAAAAKQZpoNExL/wDPgQAAAAlBnoZFESy/OCEAAAAHAZ6lRf87oQAAAAcBnqdF/zugAAAACEGaqTRMXwEx';
+let via=[],alts=[],altIdx=0,moveMs=0,maxSp=0,demoOn=false,zoomOff=0,overviewUntil=0,gEnabled=false,searchMode='dest',lastGpsT=0;
 
 /* ---------- 表示ヘルパー ---------- */
 function fmtDist(m){
@@ -121,7 +243,7 @@ const MOD={'left':['左折',-90],'right':['右折',90],'slight left':['やや左
 function describe(m){
   if(!m)return ['--',0];
   const t=m.type,mod=m.modifier;
-  if(t==='arrive')return ['目的地に到着',null];
+  if(t==='arrive')return [m.viaStop?'経由地':'目的地に到着',null];
   if(t==='roundabout'||t==='rotary'||t==='roundabout turn'){const e=(MOD[mod]||['',0]);return ['ロータリー '+(e[0]||''),e[1]||0];}
   const e=MOD[mod]||['直進',0];
   if(t==='merge')return ['合流 '+e[0],e[1]];
@@ -132,11 +254,25 @@ function describe(m){
   return [e[0],e[1]];
 }
 const DIRS=['北','北東','東','南東','南','南西','西','北西'];
-function setArrow(angle){
-  const ap=$('ap'),ac=$('ac');
-  if(angle===null){ap.style.display='none';ac.style.display='';return;}
-  ap.style.display='';ac.style.display='none';
-  $('arrow').style.transform='rotate('+angle+'deg)';
+let arrowKey='';
+function setArrow(a,near){
+  near=near||0;
+  const key=a+'|'+near;if(key===arrowKey)return;arrowKey=key;
+  const col=near?'url(#fg)':'currentColor';
+  const st='fill="none" stroke="'+col+'" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"';
+  const dur=near===2?'0.7s':'1.3s';
+  const defs=near?'<defs><linearGradient id="fg" gradientUnits="userSpaceOnUse" x1="0" y1="100" x2="0" y2="36" spreadMethod="repeat"><stop offset="0" stop-color="#19e3ff"/><stop offset=".5" stop-color="#f2feff"/><stop offset="1" stop-color="#19e3ff"/><animate attributeName="y1" values="100;36" dur="'+dur+'" repeatCount="indefinite"/><animate attributeName="y2" values="36;-28" dur="'+dur+'" repeatCount="indefinite"/></linearGradient></defs>':'';
+  let h;
+  if(a===null){h='<circle cx="50" cy="50" r="30" '+st+'/><circle cx="50" cy="50" r="9" fill="currentColor"/>';}
+  else if(Math.abs(a)>=170){h='<path d="M72 94 V42 Q72 14 50 14 Q28 14 28 42 V62" '+st+'/><path d="M14 56 L28 78 L42 56 Z" fill="'+col+'" stroke="'+col+'" stroke-width="4" stroke-linejoin="round"/>';}
+  else{
+    const t=a*Math.PI/180,s=Math.sin(t),c=Math.cos(t);
+    const px=50+10*s,py=50-10*c,ex=50+30*s,ey=50-30*c;
+    const tx=ex+13*s,ty=ey-13*c;
+    h='<path d="M50 94 V58 Q50 50 '+px.toFixed(1)+' '+py.toFixed(1)+' L'+ex.toFixed(1)+' '+ey.toFixed(1)+'" '+st+'/>'+
+      '<polygon points="'+tx.toFixed(1)+','+ty.toFixed(1)+' '+(ex+12*c).toFixed(1)+','+(ey+12*s).toFixed(1)+' '+(ex-12*c).toFixed(1)+','+(ey-12*s).toFixed(1)+'" fill="'+col+'" stroke="'+col+'" stroke-width="4" stroke-linejoin="round"/>';
+  }
+  $('arrow').innerHTML=defs+h;
 }
 function setStatus(t){$('status').textContent=t;}
 function speak(t){
@@ -145,38 +281,68 @@ function speak(t){
 }
 
 /* ---------- ルート ---------- */
-async function fetchRoute(o,d){
-  const url='https://router.project-osrm.org/route/v1/driving/'+o.lon+','+o.lat+';'+d.lon+','+d.lat+'?overview=full&geometries=geojson&steps=true';
+async function fetchRoutes(o,d,vl,alt){
+  const pts=[o].concat(vl||[]).concat([d]).map(p=>p.lon+','+p.lat).join(';');
+  const url='https://router.project-osrm.org/route/v1/driving/'+pts+'?overview=full&geometries=geojson&steps=true'+(alt&&!(vl&&vl.length)?'&alternatives=true':'');
   const r=await fetch(url);
   if(!r.ok)throw new Error('ルート計算に失敗しました');
   const j=await r.json();
   if(j.code!=='Ok'||!j.routes.length)throw new Error('ルートが見つかりません');
-  return j.routes[0];
+  return j.routes;
 }
 function setRoute(rt){
   route=rt;coords=rt.geometry.coordinates;cum=[0];
   for(let i=1;i<coords.length;i++)cum.push(cum[i-1]+hav(coords[i-1][1],coords[i-1][0],coords[i][1],coords[i][0]));
-  steps=rt.legs.flatMap(l=>l.steps);
+  const raw=[];
+  rt.legs.forEach((l,li)=>l.steps.forEach((st,k)=>{
+    const x={...st,maneuver:{...st.maneuver}};
+    if(li<rt.legs.length-1&&k===l.steps.length-1&&x.maneuver.type==='arrive')x.maneuver.viaStop=true;
+    raw.push(x);
+  }));
+  steps=[];
+  for(const st of raw){
+    const t=st.maneuver.type,md=st.maneuver.modifier;
+    const trivial=(t==='depart'&&steps.length>0)||t==='new name'||t==='notification'||(t==='continue'&&(!md||md==='straight'))||(t==='turn'&&md==='straight');
+    if(trivial&&steps.length){steps[steps.length-1]={...steps[steps.length-1],distance:steps[steps.length-1].distance+st.distance};}
+    else steps.push({...st});
+  }
+  sigs=[];sigStep=-1;hw=[];hwFrom=-1;
   const sum=steps.reduce((s,x)=>s+x.distance,0)||1,tot=cum[cum.length-1];
   let acc=0;stepEnd=steps.map(s=>{acc+=s.distance;return acc*tot/sum;});
   lastIdx=0;offCount=0;spoken={};
+  drawRoute();drawMarkers();
 }
 async function startRoute(d,name){
-  dest={lat:d.lat,lon:d.lon,name:name};
-  const o=pos||(sim?null:null);
+  const o=pos;
   if(!o){showMsg('現在地を取得できません。GPSの許可と電波を確認してください');return false;}
   showMsg('ルート計算中…');
   try{
-    setRoute(await fetchRoute(o,dest));
-    $('ov').classList.remove('show');showMsg('');
+    const nd={lat:d.lat,lon:d.lon,name:name};
+    const rts=await fetchRoutes(o,nd,[],true);
+    dest=nd;via=[];alts=rts;altIdx=0;setRoute(rts[0]);
+    $('ov').classList.remove('show');closeSheet();showMsg('');searchMode='dest';
+    addHist({lat:dest.lat,lon:dest.lon,name:name});
     setStatus('案内中: '+name);
     speak('ルート案内を開始します');
-    update();return true;
+    update();
+    if(rts.length>1)openRouteSheet(true);
+    return true;
   }catch(e){showMsg(e.message+'（通信を確認してください）');return false;}
+}
+async function addVia(d,name){
+  if(!route||!dest){showMsg('先に目的地を設定してください');return;}
+  const nv=via.concat([{lat:d.lat,lon:d.lon,name:name}]);
+  showMsg('ルート再計算中…');
+  try{
+    const rts=await fetchRoutes(pos,dest,nv,false);
+    via=nv;alts=rts;altIdx=0;setRoute(rts[0]);
+    $('ov').classList.remove('show');closeSheet();showMsg('');searchMode='dest';
+    setStatus('経由地: '+name);speak('経由地を追加しました');update();
+  }catch(e){showMsg(e.message);}
 }
 async function reroute(){
   if(rerouting||!dest||!pos)return;rerouting=true;setStatus('ルート再検索中…');speak('ルートを再検索します');
-  try{setRoute(await fetchRoute(pos,dest));setStatus('案内中: '+dest.name);}catch(e){setStatus('再検索に失敗');}
+  try{const rts=await fetchRoutes(pos,dest,via,false);alts=rts;altIdx=0;setRoute(rts[0]);setStatus('案内中: '+dest.name);}catch(e){setStatus('再検索に失敗');}
   rerouting=false;
 }
 
@@ -205,15 +371,25 @@ function pointAt(al){
 
 /* ---------- 画面更新 ---------- */
 function update(){
+  moveMap();
   if(pos){
     let sp=pos.speed;
-    $('speed').textContent=sp==null?'0':Math.round(sp*3.6);
-    $('speed').classList.toggle('over',limit>0&&sp!=null&&sp*3.6>limit+2);
+    const kmh=sp==null?0:sp*3.6;
+    if(kmh>maxSp)maxSp=kmh;
+    $('speed').textContent=Math.round(kmh);
+    $('gv').setAttribute('stroke-dasharray',(Math.min(kmh,120)/120*75).toFixed(1)+' 100');
+    const L=effLimit(),over=L>0&&sp!=null&&sp*3.6>L+2;
+    $('speed').classList.toggle('over',over);$('gauge').classList.toggle('over',over);
+    if(over&&voiceOn&&Date.now()-lastWarn>20000){lastWarn=Date.now();speak('制限速度を超えています');}
+    if(sp!=null&&sp>2)ema=ema?ema*0.995+sp*0.005:sp;
+    if(manualLimit===0)fetchLimit();
     if(pos.heading!=null&&!isNaN(pos.heading)&&(sp==null||sp>1)){
       const h=Math.round(pos.heading);$('head').innerHTML=DIRS[Math.round(h/45)%8]+'<span>'+h+'°</span>';
     }
   }
+  fetchHazards();showHazard();updateWx();renderWx();updateAddr();
   if(!route||!pos)return;
+  if(via.length&&hav(pos.lat,pos.lon,via[0].lat,via[0].lon)<60){via.shift();drawMarkers();}
   const pr=project(pos.lat,pos.lon,Math.max(0,lastIdx-3),Math.min(coords.length-1,lastIdx+250));
   let p=pr;
   if(pr.d>60){p=project(pos.lat,pos.lon,0,coords.length-1);}
@@ -222,28 +398,43 @@ function update(){
   let si=stepEnd.findIndex(e=>e>along+1);if(si<0)si=steps.length-1;
   const nxt=steps[si+1],dTurn=Math.max(0,stepEnd[si]-along);
   const [instr,ang]=describe(nxt?nxt.maneuver:{type:'arrive'});
+  let disp=instr;
+  const turnLike=nxt&&(nxt.maneuver.type==='turn'||nxt.maneuver.type==='end of road')&&nxt.maneuver.modifier&&nxt.maneuver.modifier!=='straight';
+  if(turnLike&&dTurn<=800)loadSignals(si);
+  if(turnLike&&sigStep===si&&dTurn<=700){
+    const cnt=sigs.filter(a=>a>along+8&&a<=stepEnd[si]+25).length;
+    if(cnt===1)disp='次の信号を'+instr;else if(cnt>=2&&cnt<=6)disp=cnt+'つ目の信号を'+instr;
+  }
   const [dv,du]=fmtDist(nxt?dTurn:remain);
   $('tdist').innerHTML=dv+'<small>'+du+'</small>';
-  $('tinstr').textContent=instr+(nxt&&nxt.name?'  '+nxt.name:'');
-  setArrow(nxt?ang:null);
+  let extra='';
+  if(nxt){
+    if(nxt.exits)extra+='  出口'+nxt.exits;
+    if(nxt.destinations)extra+='  '+String(nxt.destinations).replace(/, ?/g,'・')+'方面';
+  }
+  $('tinstr').textContent=disp+(nxt&&nxt.name?'  '+nxt.name:'')+extra;
+  setArrow(nxt?ang:null,nxt?(dTurn<=100?2:dTurn<=250?1:0):0);
   const n2=steps[si+2];
   if(n2){const [i2]=describe(n2.maneuver);const [v2,u2]=fmtDist(Math.max(0,stepEnd[si+1]-along));$('tnext').textContent='その先 '+v2+u2+' '+i2;}
   else $('tnext').textContent='';
+  renderHwy(along);
   const [rv,ru]=fmtDist(remain);
   $('rem').innerHTML=rv+'<small>'+ru+'</small>';
-  const secs=route.duration*(remain/(total||1));
+  const routeAvg=total/(route.duration||1),useV=ema?0.5*ema+0.5*routeAvg:routeAvg;
+  const secs=useV>0?remain/useV:route.duration*(remain/(total||1));
   $('remt').innerHTML=secs>=3600?Math.floor(secs/3600)+'<small>時間</small>'+Math.round(secs%3600/60)+'<small>分</small>':Math.max(1,Math.round(secs/60))+'<small>分</small>';
   const eta=new Date(Date.now()+secs*1000);
   $('eta').textContent=String(eta.getHours()).padStart(2,'0')+':'+String(eta.getMinutes()).padStart(2,'0');
+  if(remain<=1000&&!spoken.park&&dest){spoken.park=1;parkSuggest();}
   /* 音声案内 */
   if(nxt){
     const key=si+':';
     const say=(lv,txt)=>{if(!spoken[key+lv]){spoken[key+lv]=1;speak(txt);}};
     const t=instr.replace(/ .*/,'');
     if(dTurn<=60)say(60,'まもなく'+t+'です');
-    else if(dTurn<=220&&dTurn>60)say(200,'およそ200メートル先、'+t+'です');
-    else if(dTurn<=520&&dTurn>220)say(500,'およそ500メートル先、'+t+'です');
-  }else if(remain<40&&!spoken.arr){spoken.arr=1;speak('目的地に到着しました。案内を終了します');}
+    else if(dTurn<=220&&dTurn>60)say(200,'およそ200メートル先、'+disp.replace(/ .*/,'')+'です');
+    else if(dTurn<=520&&dTurn>220)say(500,'およそ500メートル先、'+disp.replace(/ .*/,'')+'です');
+  }else if(remain<40&&!spoken.arr){spoken.arr=1;speak('目的地に到着しました。案内を終了します');saveLog('到着');}
 }
 function tickClock(){
   const d=new Date();$('clock').textContent=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
@@ -251,13 +442,202 @@ function tickClock(){
 }
 setInterval(tickClock,1000);tickClock();
 
+/* ---------- 信号カウント ---------- */
+let sigs=[],sigStep=-1,sigBusy=false;
+async function loadSignals(si){
+  if(sigBusy||sigStep===si||!route)return;
+  sigBusy=true;sigStep=si;sigs=[];
+  try{
+    const endAl=stepEnd[si],a0=endAl-800;
+    let i0=0,i1=coords.length-1;
+    for(let i=0;i<coords.length;i++){if(cum[i]<=a0-30)i0=i;}
+    for(let i=coords.length-1;i>=0;i--){if(cum[i]>=endAl+30)i1=i;}
+    if(i1<=i0){sigBusy=false;return;}
+    let s=90,w=180,n=-90,e=-180;
+    for(let i=i0;i<=i1;i++){const c=coords[i];s=Math.min(s,c[1]);n=Math.max(n,c[1]);w=Math.min(w,c[0]);e=Math.max(e,c[0]);}
+    const pad=0.0004;
+    const q='[out:json][timeout:8];node[highway=traffic_signals]('+(s-pad)+','+(w-pad)+','+(n+pad)+','+(e+pad)+');out;';
+    const r=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'data='+encodeURIComponent(q)});
+    const j=await r.json();
+    const list=[];
+    for(const nd of j.elements||[]){
+      const p=project(nd.lat,nd.lon,i0,i1);
+      if(p.d<=18)list.push(p.along);
+    }
+    list.sort((x,y)=>x-y);
+    const out=[];for(const a of list){if(!out.length||a-out[out.length-1]>30)out.push(a);}
+    if(sigStep===si)sigs=out;
+  }catch(e){}
+  sigBusy=false;
+}
+
+/* ---------- 制限速度（自動） ---------- */
+let lastLim={t:0,lat:0,lon:0},limBusy=false;
+function effLimit(){return manualLimit>0?manualLimit:autoLimit;}
+function renderLimit(){
+  const L=effLimit(),el=$('limit');
+  if(L){el.textContent=L;el.classList.remove('off');}
+  else{el.textContent=manualLimit===0?'AUTO':'--';el.classList.add('off');}
+  const gl=$('gl');
+  if(L){gl.setAttribute('stroke-dashoffset',String(-(Math.min(L,120)/120*75-0.5)));gl.style.display='';}
+  else gl.style.display='none';
+}
+async function fetchLimit(){
+  if(!pos||limBusy)return;
+  const now=Date.now();
+  if(now-lastLim.t<12000)return;
+  if(lastLim.lat&&now-lastLim.t<60000&&hav(lastLim.lat,lastLim.lon,pos.lat,pos.lon)<60)return;
+  limBusy=true;lastLim={t:now,lat:pos.lat,lon:pos.lon};
+  try{
+    const q='[out:json][timeout:8];way(around:25,'+pos.lat+','+pos.lon+')[highway][maxspeed];out tags geom;';
+    const r=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'data='+encodeURIComponent(q)});
+    const j=await r.json();
+    let best=0,bd=1e9;
+    for(const w of j.elements||[]){
+      const m=parseInt(w.tags&&w.tags.maxspeed,10);if(!m||isNaN(m))continue;
+      for(const g of w.geometry||[]){const d=hav(pos.lat,pos.lon,g.lat,g.lon);if(d<bd){bd=d;best=m;}}
+    }
+    autoLimit=best;renderLimit();
+  }catch(e){}
+  limBusy=false;
+}
+
+/* ---------- 昼夜 ---------- */
+function sunTimes(lat,lon,d){
+  const rd=Math.PI/180;
+  const N=Math.floor((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())-Date.UTC(d.getFullYear(),0,0))/864e5);
+  const lh=lon/15,noon=new Date(d.getFullYear(),d.getMonth(),d.getDate(),12).getTime();
+  function calc(rising){
+    const t=N+((rising?6:18)-lh)/24,M=0.9856*t-3.289;
+    let L=M+1.916*Math.sin(M*rd)+0.020*Math.sin(2*M*rd)+282.634;L=(L%360+360)%360;
+    let RA=Math.atan(0.91764*Math.tan(L*rd))/rd;RA=(RA%360+360)%360;
+    RA+=(Math.floor(L/90)*90)-(Math.floor(RA/90)*90);RA/=15;
+    const sinD=0.39782*Math.sin(L*rd),cosD=Math.cos(Math.asin(sinD));
+    const cosH=(Math.cos(90.833*rd)-sinD*Math.sin(lat*rd))/(cosD*Math.cos(lat*rd));
+    if(cosH>1||cosH<-1)return null;
+    let H=rising?360-Math.acos(cosH)/rd:Math.acos(cosH)/rd;H/=15;
+    let UT=H+RA-0.06571*t-6.622-lh;UT=(UT%24+24)%24;
+    let ms=Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())+UT*3600e3;
+    while(ms<noon-12*3600e3)ms+=24*3600e3;while(ms>noon+12*3600e3)ms-=24*3600e3;
+    return ms;
+  }
+  const a=calc(true),b=calc(false);
+  return(a==null||b==null)?null:{rise:a,set:b};
+}
+function applyNight(){
+  let n;
+  if(nightMode==='night')n=true;
+  else if(nightMode==='day')n=false;
+  else{
+    const now=Date.now(),la=pos?pos.lat:35.66,lo=pos?pos.lon:138.57;
+    const st=sunTimes(la,lo,new Date());
+    if(st)n=now<st.rise-1200000||now>st.set-900000;
+    else{const h=new Date().getHours();n=h>=18||h<6;}
+  }
+  document.body.classList.toggle('night',n);
+}
+setInterval(applyNight,60000);applyNight();
+function nightLabel(){return nightMode==='auto'?'日没で自動':nightMode==='day'?'昼固定':'夜固定';}
+function cycleNight(){nightMode=nightMode==='auto'?'day':nightMode==='day'?'night':'auto';applyNight();setStatus('表示: '+nightLabel());try{ui.night=nightMode;lsSet('hud_ui',ui);}catch(e){}}
+$('clock').onclick=cycleNight;
+
+/* ---------- 保存（お気に入り・履歴） ---------- */
+function lsGet(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+let fav=lsGet('hud_fav',{}),hist=lsGet('hud_hist',[]);
+function addHist(d){hist=hist.filter(h=>h.name!==d.name);hist.unshift({lat:d.lat,lon:d.lon,name:d.name});hist=hist.slice(0,8);lsSet('hud_hist',hist);}
+function pick(d,name){if(searchMode==='via')addVia(d,name);else startRoute(d,name);}
+function renderFav(){
+  const f=$('fav');f.innerHTML='';
+  [['home','自宅'],['work','会社']].forEach(([k,l])=>{
+    const b=document.createElement('button');b.textContent=l+(fav[k]?'':'（未登録）');
+    b.onclick=()=>{if(fav[k])pick(fav[k],fav[k].name||l);else showMsg('検索結果の右にある「自宅に登録」「会社に登録」ボタンで登録できます');};
+    f.appendChild(b);
+  });
+}
+function addRow(title,sub,d,withFav){
+  const row=document.createElement('div');row.className='r';
+  const t=document.createElement('div');t.className='rt';t.textContent=title;
+  String(sub||'').split('\n').forEach(line=>{if(!line)return;const s=document.createElement('small');s.textContent=line;t.appendChild(s);});
+  t.onclick=()=>pick({lat:d.lat,lon:d.lon},title);
+  row.appendChild(t);
+  if(withFav)[['home','自宅'],['work','会社']].forEach(([k,l])=>{
+    const b=document.createElement('button');b.className='sm';b.textContent=l+'に登録';
+    b.onclick=()=>{fav[k]={lat:d.lat,lon:d.lon,name:title};lsSet('hud_fav',fav);renderFav();showMsg(l+'に登録しました: '+title);};
+    row.appendChild(b);
+  });
+  if(d.phone){const tb=document.createElement('button');tb.className='sm';tb.textContent='電話';tb.onclick=()=>{location.href='tel:'+d.phone.replace(/[^\d+]/g,'');};row.appendChild(tb);}
+  $('res').appendChild(row);
+}
+function tagInfo(t){
+  t=t||{};const ph=t.phone||t['contact:phone']||'';const hr=t.opening_hours||'';
+  const bits=[];if(hr)bits.push('営業 '+hr.slice(0,40));if(ph)bits.push('TEL '+ph.split(';')[0]);
+  return {line:bits.join('  ・  '),phone:ph?ph.split(';')[0]:''};
+}
+function renderHome(){
+  renderFav();$('res').innerHTML='';
+  if(hist.length){const h=document.createElement('div');h.className='hl';h.textContent='最近の目的地';$('res').appendChild(h);hist.forEach(x=>addRow(x.name,'履歴',x,true));}
+}
+
+/* ---------- マップ ---------- */
+let map=null,mapLoaded=false,carMk=null,mapMode=false,lastHd=0;
+function routeGeo(){return {type:'Feature',geometry:{type:'LineString',coordinates:route?coords:[]}};}
+function drawRoute(){if(map&&mapLoaded)map.getSource('route').setData(routeGeo());}
+function initMap(){
+  if(map)return true;
+  if(!window.maplibregl){setStatus('地図の読み込みに失敗（通信を確認）');return false;}
+  const c=pos?[pos.lon,pos.lat]:[138.5685,35.6677];
+  map=new maplibregl.Map({container:'map',center:c,zoom:16,pitch:55,bearing:0,interactive:false,
+    attributionControl:{compact:true,customAttribution:'地図: 国土地理院'},
+    style:{version:8,sources:{gsi:{type:'raster',tiles:['https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'],tileSize:256,maxzoom:18}},
+      layers:[{id:'gsi',type:'raster',source:'gsi'}]}});
+  map.on('load',()=>{
+    map.addSource('route',{type:'geojson',data:routeGeo()});
+    map.addLayer({id:'route-case',type:'line',source:'route',layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':'#ffffff','line-width':13}});
+    map.addLayer({id:'route-line',type:'line',source:'route',layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':'#1ec8ff','line-width':8}});
+    mapLoaded=true;drawRoute();drawMarkers();
+  });
+  const el=document.createElement('div');el.className='car';
+  carMk=new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat(c).addTo(map);
+  return true;
+}
+let destMk=null,viaMks=[];
+function drawMarkers(){
+  if(!map||!window.maplibregl)return;
+  if(destMk){destMk.remove();destMk=null;}
+  viaMks.forEach(m=>m.remove());viaMks=[];
+  if(!dest||!route)return;
+  const e=document.createElement('div');e.className='pin';
+  destMk=new maplibregl.Marker({element:e,anchor:'bottom'}).setLngLat([dest.lon,dest.lat]).addTo(map);
+  via.forEach(v=>{const x=document.createElement('div');x.className='pin via';viaMks.push(new maplibregl.Marker({element:x,anchor:'bottom'}).setLngLat([v.lon,v.lat]).addTo(map));});
+}
+function toggleOverview(){
+  if(!map||!route)return;
+  if(Date.now()<overviewUntil){overviewUntil=0;moveMap();return;}
+  overviewUntil=Date.now()+15000;
+  const b=new maplibregl.LngLatBounds();coords.forEach(c=>b.extend(c));
+  map.fitBounds(b,{padding:{top:70,bottom:120,left:Math.round(window.innerWidth*0.38),right:Math.round(window.innerWidth*0.24)},pitch:0,bearing:0,duration:900,maxZoom:16});
+}
+function moveMap(){
+  if(!map||!mapMode||!pos)return;
+  if(Date.now()<overviewUntil){carMk.setLngLat([pos.lon,pos.lat]);return;}
+  const sp=pos.speed==null?0:pos.speed*3.6;
+  if(pos.heading!=null&&!isNaN(pos.heading)&&(pos.speed==null||pos.speed>1))lastHd=pos.heading;
+  carMk.setLngLat([pos.lon,pos.lat]);
+  const z=sp<15?17:sp<40?16.3:sp<70?15.5:14.6;
+  map.easeTo({center:[pos.lon,pos.lat],bearing:lastHd,pitch:55,zoom:Math.min(18.5,Math.max(11,z+zoomOff)),duration:900,easing:t=>t,
+    padding:{top:Math.round(window.innerHeight*0.38),bottom:0,left:0,right:0}});
+}
+
 /* ---------- GPS ---------- */
 function onGps(p){
   if(sim)return;
   const c=p.coords;
-  pos={lat:c.latitude,lon:c.longitude,speed:c.speed,heading:c.heading,acc:c.accuracy};
+  pos={lat:c.latitude,lon:c.longitude,speed:c.speed,heading:c.heading,acc:c.accuracy,alt:c.altitude};
   if(lastReal){const d=hav(lastReal.lat,lastReal.lon,pos.lat,pos.lon);if(d>3&&d<500)trip+=d;}
   lastReal={lat:pos.lat,lon:pos.lon};
+  const nowT=Date.now();if(lastGpsT&&(pos.speed||0)>1.5)moveMs+=Math.min(nowT-lastGpsT,5000);lastGpsT=nowT;
+  calcG();trackAlt();
   if(!route)setStatus('GPS OK（精度 '+Math.round(c.accuracy)+'m）');
   update();
 }
@@ -266,12 +646,34 @@ function startGps(){
   if(watchId!=null)navigator.geolocation.clearWatch(watchId);
   watchId=navigator.geolocation.watchPosition(onGps,e=>setStatus('GPSエラー: '+(e.code===1?'位置情報が許可されていません':e.message)),{enableHighAccuracy:true,maximumAge:1000,timeout:15000});
 }
-async function keepAwake(){try{if('wakeLock' in navigator){wake=await navigator.wakeLock.request('screen');}}catch(e){}}
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')keepAwake();});
+let wakeOK=false,nsStarted=false;
+async function keepAwake(){
+  try{
+    if('wakeLock' in navigator){
+      wake=await navigator.wakeLock.request('screen');wakeOK=true;
+      wake.addEventListener('release',()=>{wakeOK=false;});
+      return;
+    }
+  }catch(e){wakeOK=false;}
+  noSleepStart();
+}
+function noSleepStart(){
+  if(nsStarted)return;
+  const v=$('nosleep');
+  try{
+    if(!v.src)v.src='data:video/mp4;base64,'+NOSLEEP;
+    v.loop=true;const p=v.play();
+    if(p&&p.then)p.then(()=>{nsStarted=true;wakeOK=true;}).catch(()=>{});
+  }catch(e){}
+}
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible'){keepAwake();if(nsStarted){try{$('nosleep').play();}catch(e){}}}
+});
+document.addEventListener('touchend',()=>{if(!wakeOK)keepAwake();},{passive:true});
 
 /* ---------- デモ走行 ---------- */
 async function toggleDemo(){
-  if(sim){clearInterval(sim);sim=null;$('bDemo').classList.remove('on');setStatus('デモ終了');return;}
+  if(sim){clearInterval(sim);sim=null;demoUI(false);setStatus('デモ終了');return;}
   if(!route){
     const o=pos||{lat:35.6677,lon:138.5685};
     pos={lat:o.lat,lon:o.lon,speed:0,heading:0};
@@ -284,13 +686,14 @@ async function toggleDemo(){
     }catch(e){setStatus('デモ用ルートを取得できません（通信を確認）');return;}
   }
   let al=0;const total=cum[cum.length-1];
-  $('bDemo').classList.add('on');setStatus('デモ走行中（約40km/h）');
+  demoUI(true);setStatus('デモ走行中（約40km/h）');
   sim=setInterval(()=>{
     al+=11.1;if(al>=total){al=total;}
     const q=pointAt(al);pos={lat:q.lat,lon:q.lon,speed:11.1,heading:q.heading};
-    trip+=11.1;
+    trip+=11.1;moveMs+=1000;
+    calcG();
     update();
-    if(al>=total){clearInterval(sim);sim=null;$('bDemo').classList.remove('on');}
+    if(al>=total){clearInterval(sim);sim=null;demoUI(false);}
   },1000);
 }
 
@@ -300,45 +703,523 @@ async function search(){
   const q=$('q').value.trim();if(!q)return;
   showMsg('検索中…');$('res').innerHTML='';
   try{
-    const r=await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=8&countrycodes=jp&accept-language=ja&q='+encodeURIComponent(q));
+    const r=await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=8&countrycodes=jp&accept-language=ja&extratags=1&q='+encodeURIComponent(q));
     const j=await r.json();
     if(!j.length){showMsg('見つかりませんでした。住所や施設名を変えてみてください');return;}
     showMsg('');
     j.forEach(x=>{
       const parts=x.display_name.split(', ');
-      const div=document.createElement('div');div.className='r';
-      div.textContent=parts[0];const s=document.createElement('small');s.textContent=parts.slice(1,4).join(' / ');div.appendChild(s);
-      div.onclick=()=>startRoute({lat:+x.lat,lon:+x.lon},parts[0]);
-      $('res').appendChild(div);
+      const inf=tagInfo(x.extratags);
+      addRow(parts[0],parts.slice(1,4).join(' / ')+(inf.line?'\n'+inf.line:''),{lat:+x.lat,lon:+x.lon,phone:inf.phone},true);
     });
   }catch(e){showMsg('検索に失敗しました（通信を確認してください）');}
 }
 
+/* ---------- 危険箇所（オービス・踏切） ---------- */
+let haz=[],hazT=0,hazPos=null,hazBusy=false,hazWarned={};
+function bearing(a,b,c,d){const y=Math.sin(rad(d-b))*Math.cos(rad(c));const x=Math.cos(rad(a))*Math.sin(rad(c))-Math.sin(rad(a))*Math.cos(rad(c))*Math.cos(rad(d-b));return (Math.atan2(y,x)*180/Math.PI+360)%360;}
+async function fetchHazards(){
+  if(!pos||hazBusy)return;
+  const now=Date.now();
+  if(now-hazT<20000)return;
+  if(hazPos&&now-hazT<120000&&hav(hazPos.lat,hazPos.lon,pos.lat,pos.lon)<300)return;
+  hazBusy=true;hazT=now;hazPos={lat:pos.lat,lon:pos.lon};
+  try{
+    const a='(around:1200,'+pos.lat+','+pos.lon+')';
+    const q='[out:json][timeout:10];(node'+a+'[highway=speed_camera];node'+a+'[railway=level_crossing];);out;';
+    const r=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'data='+encodeURIComponent(q)});
+    const j=await r.json();
+    haz=(j.elements||[]).filter(e=>e.lat!=null).map(e=>({id:e.id,lat:e.lat,lon:e.lon,kind:(e.tags&&e.tags.highway==='speed_camera')?'cam':'rail'}));
+  }catch(e){}
+  hazBusy=false;
+}
+function showHazard(){
+  const el=$('alert');
+  if(!pos||!haz.length||(pos.speed||0)<2.5){el.classList.remove('show');return;}
+  const hd=(pos.heading!=null&&!isNaN(pos.heading))?pos.heading:lastHd;
+  let best=null;
+  for(const h of haz){
+    const d=hav(pos.lat,pos.lon,h.lat,h.lon);if(d>600)continue;
+    const df=Math.abs(((bearing(pos.lat,pos.lon,h.lat,h.lon)-hd+540)%360)-180);
+    if(df>40)continue;
+    if(!best||d<best.d)best={h:h,d:d};
+  }
+  if(!best){el.classList.remove('show');return;}
+  const label=best.h.kind==='cam'?'オービス':'踏切';
+  const [v,u]=fmtDist(best.d);
+  el.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18v.5"/></svg>'+label+'　'+v+u+'先';
+  el.classList.add('show');
+  if(!hazWarned[best.h.id]&&best.d<500){hazWarned[best.h.id]=1;speak('この先、'+label+'があります');}
+}
+
+/* ---------- Gメーター（GPSからの推定） ---------- */
+let gPrev=null,gx=0,gy=0,evA=0,evB=0,evC=0,lastEv=0;
+function calcG(){
+  if(pos&&pos.speed!=null&&pos.heading!=null&&!isNaN(pos.heading)){
+    const now=Date.now();
+    if(!gPrev||now-gPrev.t>=4000){gPrev={t:now,v:pos.speed,h:pos.heading};}
+    else{
+      const dt=(now-gPrev.t)/1000;
+      if(dt>=0.4){
+        const al=(pos.speed-gPrev.v)/dt/9.8;
+        const dh=((pos.heading-gPrev.h+540)%360)-180;
+        const la=pos.speed>2?pos.speed*rad(dh)/dt/9.8:0;
+        gy=gy*0.6+al*0.4;gx=gx*0.6+la*0.4;
+        const tn=Date.now();
+        if(tn-lastEv>3000){
+          if(gy>0.30){evA++;lastEv=tn;}else if(gy<-0.30){evB++;lastEv=tn;}else if(Math.abs(gx)>0.38){evC++;lastEv=tn;}
+        }
+        gPrev={t:now,v:pos.speed,h:pos.heading};
+      }
+    }
+  }
+  renderG();
+}
+function renderG(){
+  if(!gEnabled)return;
+  const c=v=>Math.max(-1,Math.min(1,v/0.5))*3.2;
+  $('gdot').style.transform='translate('+c(gx).toFixed(2)+'vh,'+(-c(gy)).toFixed(2)+'vh)';
+}
+function toggleG(){
+  gEnabled=!gEnabled;$('gball').classList.toggle('on',gEnabled);renderG();
+  setStatus('Gメーター '+(gEnabled?'ON（GPSからの推定値）':'OFF'));closeSheet();
+}
+
+/* ---------- 走行ログ ---------- */
+function saveLog(reason){
+  if(trip<300)return;
+  const log=lsGet('hud_log',[]);
+  const score=Math.max(0,100-evA*4-evB*5-evC*3);
+  log.unshift({t:tripStart,e:Date.now(),dist:trip,mv:moveMs,max:maxSp,dest:dest?dest.name:'',why:reason,a:evA,b:evB,c:evC,score:score});
+  lsSet('hud_log',log.slice(0,200));
+  trip=0;tripStart=Date.now();moveMs=0;maxSp=0;evA=evB=evC=0;altBuf=[];
+}
+function pad2(n){return String(n).padStart(2,'0');}
+function openLog(){
+  const b=openSheet('走行ログ');
+  const log=lsGet('hud_log',[]);const now=new Date();
+  const mon=log.filter(x=>{const d=new Date(x.t);return d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth();});
+  const km=mon.reduce((a,x)=>a+x.dist,0)/1000;
+  const sum=document.createElement('div');sum.className='hl';
+  sum.textContent='今月  '+km.toFixed(1)+' km  /  '+mon.length+' 回';b.appendChild(sum);
+  const acts=document.createElement('div');acts.className='chips';
+  const bs=document.createElement('button');bs.textContent='今の走行を保存';bs.onclick=()=>{saveLog('手動');openLog();};acts.appendChild(bs);
+  const bc=document.createElement('button');bc.textContent='ログを消去';bc.onclick=()=>{lsSet('hud_log',[]);openLog();};acts.appendChild(bc);
+  b.appendChild(acts);
+  if(!log.length){const e=document.createElement('div');e.className='hl';e.textContent='まだ記録がありません（案内の終了・到着時に自動保存されます）';b.appendChild(e);}
+  log.slice(0,30).forEach(x=>{
+    const d=new Date(x.t);
+    const avg=x.mv>0?(x.dist/(x.mv/1000)*3.6):0;
+    addList(b,(d.getMonth()+1)+'/'+d.getDate()+' '+pad2(d.getHours())+':'+pad2(d.getMinutes())+'  '+(x.dest||'目的地なし'),
+      (x.dist/1000).toFixed(1)+'km ・ '+Math.round((x.e-x.t)/60000)+'分 ・ 平均'+Math.round(avg)+'km/h ・ 最高'+Math.round(x.max)+'km/h'+(x.score!=null?' ・ 運転'+x.score+'点（急加速'+x.a+' 急ブレーキ'+x.b+' 急ハンドル'+x.c+'）':''));
+  });
+}
+
+/* ---------- 通知バナー・休憩リマインダー ---------- */
+let noteTimer=null,driveMs=0,stopMs=0,lastDriveT=0,nextRestAt=7200000;
+function showNote(t,ms){const el=$('note');el.textContent=t;el.classList.add('show');clearTimeout(noteTimer);noteTimer=setTimeout(()=>el.classList.remove('show'),ms||12000);}
+function tickDrive(){
+  const now=Date.now(),dt=lastDriveT?Math.min(now-lastDriveT,3000):0;lastDriveT=now;
+  const mv=pos&&(pos.speed||0)>1.5;
+  if(mv){driveMs+=dt;stopMs=0;}
+  else{stopMs+=dt;if(stopMs>=600000){driveMs=0;nextRestAt=7200000;}}
+  if(driveMs>=nextRestAt){
+    nextRestAt+=1800000;
+    const h=Math.floor(driveMs/3600000),m=Math.round(driveMs%3600000/60000);
+    showNote('運転 '+h+'時間'+m+'分　休憩しませんか',20000);
+    speak('運転を始めて'+h+'時間'+m+'分です。そろそろ休憩しませんか');
+  }
+}
+setInterval(tickDrive,1000);
+
+/* ---------- 天気・凍結・標高 ---------- */
+let wxT=0,wxPos=null,wxBusy=false,wxNow=null,wxDest=null,frostWarned=false,destWxFor='';
+const WC={0:'快晴',1:'晴れ',2:'晴れ時々曇り',3:'曇り',45:'霧',48:'霧',51:'霧雨',53:'霧雨',55:'霧雨',56:'凍雨',57:'凍雨',61:'小雨',63:'雨',65:'大雨',66:'凍雨',67:'凍雨',71:'小雪',73:'雪',75:'大雪',77:'雪',80:'にわか雨',81:'にわか雨',82:'激しい雨',85:'にわか雪',86:'にわか雪',95:'雷雨',96:'雷雨',99:'雷雨'};
+async function getWx(lat,lon){
+  const r=await fetch('https://api.open-meteo.com/v1/forecast?latitude='+lat+'&longitude='+lon+'&current=temperature_2m,weather_code&timezone=auto');
+  const j=await r.json();return {t:j.current.temperature_2m,c:j.current.weather_code};
+}
+async function updateWx(){
+  if(!pos||wxBusy)return;
+  const now=Date.now(),dk=dest?dest.lat.toFixed(2)+','+dest.lon.toFixed(2):'',changed=dk!==destWxFor;
+  if(!changed&&wxPos&&now-wxT<600000&&hav(wxPos.lat,wxPos.lon,pos.lat,pos.lon)<5000)return;
+  if(!changed&&now-wxT<30000)return;
+  wxBusy=true;wxT=now;wxPos={lat:pos.lat,lon:pos.lon};
+  try{
+    wxNow=await getWx(pos.lat,pos.lon);
+    if(dest){destWxFor=dk;wxDest=await getWx(dest.lat,dest.lon);}else{wxDest=null;destWxFor='';}
+    if(wxNow.t<=3&&!frostWarned){frostWarned=true;showNote('気温 '+Math.round(wxNow.t)+'℃　路面の凍結に注意',15000);speak('気温が低くなっています。路面の凍結に注意してください');}
+    if(wxNow.t>6)frostWarned=false;
+  }catch(e){}
+  wxBusy=false;
+}
+let altS=null,altBuf=[];
+function trackAlt(){
+  if(!pos||pos.alt==null||isNaN(pos.alt))return;
+  altS=altS==null?pos.alt:altS*0.7+pos.alt*0.3;
+  const last=altBuf[altBuf.length-1];
+  if(!last||trip-last.d>=25){altBuf.push({d:trip,a:altS});if(altBuf.length>40)altBuf.shift();}
+}
+function slopePct(){
+  if(altS==null||altBuf.length<3)return null;
+  const ref=altBuf.slice().reverse().find(x=>trip-x.d>=150);
+  return ref?(altS-ref.a)/(trip-ref.d)*100:null;
+}
+function renderWx(){
+  const l1=[];
+  if(wxNow)l1.push('現在 '+Math.round(wxNow.t)+'℃ '+(WC[wxNow.c]||''));
+  if(wxDest&&dest)l1.push('目的地 '+Math.round(wxDest.t)+'℃ '+(WC[wxDest.c]||''));
+  $('wx1').textContent=l1.join('　／　');
+  let l2='';
+  if(altS!=null){l2='標高 '+Math.round(altS)+'m';const sp=slopePct();if(sp!=null&&Math.abs(sp)>=2.5)l2+='　'+(sp>0?'上り ':'下り ')+Math.abs(sp).toFixed(0)+'%';}
+  $('wx2').textContent=l2;
+  $('wx').classList.toggle('warn',!!(wxNow&&wxNow.t<=3));
+}
+
+/* ---------- 目的地付近の駐車場 ---------- */
+async function parkSuggest(){
+  try{
+    const q='[out:json][timeout:10];nwr(around:350,'+dest.lat+','+dest.lon+')[amenity=parking][access!~"private|customers|permit|delivery"];out center 20;';
+    const r=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'data='+encodeURIComponent(q)});
+    const j=await r.json();
+    let best=null;
+    for(const e of j.elements||[]){
+      const la=e.lat!=null?e.lat:(e.center&&e.center.lat),lo=e.lon!=null?e.lon:(e.center&&e.center.lon);
+      if(la==null)continue;const d=hav(dest.lat,dest.lon,la,lo);
+      if(!best||d<best.d)best={d:d,name:(e.tags&&(e.tags.name||e.tags.operator))||'駐車場'};
+    }
+    if(best){showNote('目的地の近くに駐車場　'+best.name+'（目的地から約'+Math.round(best.d/10)*10+'m）',15000);speak('目的地の近くに駐車場があります');}
+  }catch(e){}
+}
+
+/* ---------- 駐車位置メモ ---------- */
+function saveParking(){
+  if(!pos){$('shm').textContent='現在地を取得できません';return;}
+  lsSet('hud_park',{lat:pos.lat,lon:pos.lon,t:Date.now()});
+  closeSheet();setStatus('駐車位置を記録しました');speak('駐車位置を記録しました');
+}
+function goParking(){
+  const p=lsGet('hud_park',null);
+  if(!p){$('shm').textContent='記録された駐車位置がありません';return;}
+  startRoute({lat:p.lat,lon:p.lon},'駐車位置');
+}
+
+/* ---------- 音声で目的地 ---------- */
+function voiceSearch(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){$('shm').textContent='この環境は音声入力に対応していません';return;}
+  closeSheet();openSearch('dest');showMsg('話してください…（例：甲府駅）');
+  try{
+    const rc=new SR();rc.lang='ja-JP';rc.interimResults=false;rc.maxAlternatives=1;
+    rc.onresult=e=>{const t=e.results[0][0].transcript;$('q').value=t;showMsg('「'+t+'」を検索します');search();};
+    rc.onerror=()=>showMsg('音声を認識できませんでした。入力欄に直接入力してください');
+    rc.start();
+  }catch(e){showMsg('音声入力を開始できませんでした');}
+}
+
+/* ---------- 地図の事前保存 ---------- */
+function lon2x(lon,z){return Math.floor((lon+180)/360*Math.pow(2,z));}
+function lat2y(lat,z){const r=rad(lat);return Math.floor((1-Math.log(Math.tan(r)+1/Math.cos(r))/Math.PI)/2*Math.pow(2,z));}
+async function saveMapAlongRoute(){
+  if(!route){$('shm').textContent='案内中ではありません';return;}
+  if(!('caches' in window)){$('shm').textContent='この環境は保存に対応していません';return;}
+  const set=new Set();
+  for(const z of [12,13,14,15,16]){
+    for(let i=0;i<coords.length;i+=(z>=15?1:2)){
+      const x=lon2x(coords[i][0],z),y=lat2y(coords[i][1],z);
+      for(let dx=-1;dx<=1;dx++)for(let dy=-1;dy<=1;dy++)set.add(z+'/'+(x+dx)+'/'+(y+dy));
+    }
+  }
+  let list=[...set];if(list.length>3000)list=list.slice(0,3000);
+  closeSheet();
+  try{
+    const c=await caches.open('hud-tiles-v1');let n=0;
+    for(let i=0;i<list.length;i+=6){
+      await Promise.all(list.slice(i,i+6).map(async k=>{
+        const u='https://cyberjapandata.gsi.go.jp/xyz/std/'+k+'.png';
+        try{if(!(await c.match(u))){const r=await fetch(u);if(r.ok)await c.put(u,r);}}catch(e){}
+        n++;
+      }));
+      setStatus('地図を保存中 '+n+' / '+list.length);
+    }
+    setStatus('地図を保存しました（'+list.length+'枚）');
+  }catch(e){setStatus('地図の保存に失敗しました');}
+}
+
+/* ---------- 現在地の住所 ---------- */
+let adT=0,adPos=null,adBusy=false;
+async function updateAddr(){
+  if(!pos||adBusy)return;
+  const now=Date.now();
+  if(now-adT<15000)return;
+  if(adPos&&now-adT<90000&&hav(adPos.lat,adPos.lon,pos.lat,pos.lon)<150)return;
+  adBusy=true;adT=now;adPos={lat:pos.lat,lon:pos.lon};
+  try{
+    const r=await fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=17&accept-language=ja&lat='+pos.lat+'&lon='+pos.lon);
+    const j=await r.json();const a=j.address||{};
+    const city=a.city||a.town||a.village||a.municipality||a.county||'';
+    const sub=a.suburb||a.neighbourhood||a.quarter||a.city_district||a.hamlet||'';
+    $('addr').textContent=(city+' '+sub).trim();
+  }catch(e){}
+  adBusy=false;
+}
+
+/* ---------- 高速道路（出口・SA/PA） ---------- */
+let hw=[],hwFrom=-1,hwBusy=false;
+async function loadHwy(along){
+  if(hwBusy||!route)return;
+  hwBusy=true;hwFrom=along;
+  try{
+    const a1=along+25000;let i0=0,i1=coords.length-1;
+    for(let i=0;i<coords.length;i++){if(cum[i]<=along-100)i0=i;}
+    for(let i=coords.length-1;i>=0;i--){if(cum[i]>=a1)i1=i;}
+    if(i1<=i0){hwBusy=false;return;}
+    let s=90,w=180,n=-90,e=-180;
+    for(let i=i0;i<=i1;i++){const c=coords[i];s=Math.min(s,c[1]);n=Math.max(n,c[1]);w=Math.min(w,c[0]);e=Math.max(e,c[0]);}
+    const p=0.004,bb=(s-p)+','+(w-p)+','+(n+p)+','+(e+p);
+    const q='[out:json][timeout:20];(node[highway=motorway_junction]('+bb+');nwr[highway=services]('+bb+');nwr[highway=rest_area]('+bb+'););out center;';
+    const r=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'data='+encodeURIComponent(q)});
+    const j=await r.json();
+    const out=[];
+    for(const el of j.elements||[]){
+      const la=el.lat!=null?el.lat:(el.center&&el.center.lat),lo=el.lon!=null?el.lon:(el.center&&el.center.lon);
+      if(la==null)continue;
+      const t=el.tags||{},name=t.name||t.ref||'';if(!name)continue;
+      const kind=t.highway==='motorway_junction'?'jn':'sa';
+      const pr=project(la,lo,i0,i1);
+      if(pr.d<=(kind==='jn'?60:500))out.push({kind:kind,name:name,along:pr.along});
+    }
+    out.sort((x,y)=>x.along-y.along);hw=out;
+  }catch(e){}
+  hwBusy=false;
+}
+function renderHwy(along){
+  const el=$('hwy');
+  const onHwy=pos&&((autoLimit>=70)||((pos.speed||0)*3.6>=80));
+  if(!route||!onHwy){el.classList.remove('show');return;}
+  if(hwFrom<0||along-hwFrom>12000)loadHwy(along);
+  const ahead=hw.filter(x=>x.along>along+100&&x.along-along<30000);
+  const jn=ahead.find(x=>x.kind==='jn'),sa=ahead.find(x=>x.kind==='sa');
+  const parts=[];
+  if(jn){const [v,u]=fmtDist(jn.along-along);parts.push('次の出口　'+jn.name+'　'+v+u);}
+  if(sa){const [v,u]=fmtDist(sa.along-along);parts.push('次のSA/PA　'+sa.name+'　'+v+u);}
+  if(!parts.length){el.classList.remove('show');return;}
+  el.textContent=parts.join('　｜　');el.classList.add('show');
+}
+
+/* ---------- 表示設定 ---------- */
+let ui=lsGet('hud_ui',{br:1,fs:1,night:'auto'});
+function applyUi(){
+  const bd=document.body;
+  bd.style.setProperty('--b',ui.br);bd.style.setProperty('--fs',ui.fs);
+  nightMode=ui.night||'auto';applyNight();lsSet('hud_ui',ui);
+}
+function openDisplay(){
+  const b=openSheet('表示設定');
+  const row=(label,opts,cur,set)=>{
+    const h=document.createElement('div');h.className='hl';h.textContent=label;b.appendChild(h);
+    const c=document.createElement('div');c.className='chips';
+    opts.forEach(([v,l])=>{const x=document.createElement('button');x.textContent=l;if(v===cur)x.classList.add('on');x.onclick=()=>{set(v);applyUi();openDisplay();};c.appendChild(x);});
+    b.appendChild(c);
+  };
+  row('昼夜',[['auto','日没で自動'],['day','常に昼'],['night','常に夜']],ui.night,v=>ui.night=v);
+  row('明るさ',[[1,'100%'],[0.8,'80%'],[0.6,'60%'],[0.4,'40%']],ui.br,v=>ui.br=v);
+  row('文字サイズ',[[0.92,'小'],[1,'標準'],[1.12,'大']],ui.fs,v=>ui.fs=v);
+}
+
+/* ---------- バックアップ ---------- */
+const BK=['hud_fav','hud_hist','hud_log','hud_park','hud_ui'];
+function openBackup(){
+  const b=openSheet('バックアップ');
+  $('shm').textContent='Safariとホーム画面のアプリは保存先が別です。コピーして貼り付ければ移せます';
+  const data={};BK.forEach(k=>{const v=lsGet(k,null);if(v!=null)data[k]=v;});
+  const ta=document.createElement('textarea');ta.id='bk';ta.value=JSON.stringify(data);
+  ta.placeholder='復元するときは、ここに貼り付けて「復元」を押します';
+  b.appendChild(ta);
+  const c=document.createElement('div');c.className='chips';
+  const b1=document.createElement('button');b1.textContent='コピー';
+  b1.onclick=async()=>{try{await navigator.clipboard.writeText(ta.value);$('shm').textContent='コピーしました';}catch(e){ta.select();$('shm').textContent='選択しました。コピーしてください';}};
+  const b2=document.createElement('button');b2.textContent='共有';
+  b2.onclick=async()=>{try{if(navigator.share)await navigator.share({text:ta.value});else $('shm').textContent='この環境は共有に対応していません';}catch(e){}};
+  const b3=document.createElement('button');b3.textContent='復元';
+  b3.onclick=()=>{
+    try{
+      const o=JSON.parse(ta.value);let n=0;
+      BK.forEach(k=>{if(o[k]!==undefined){lsSet(k,o[k]);n++;}});
+      if(!n){$('shm').textContent='復元できるデータがありません';return;}
+      $('shm').textContent=n+'件を復元しました。再読み込みします…';setTimeout(()=>location.reload(),700);
+    }catch(e){$('shm').textContent='データの形式が正しくありません';}
+  };
+  [b1,b2,b3].forEach(x=>c.appendChild(x));b.appendChild(c);
+}
+
+/* ---------- シート共通 ---------- */
+const IC={
+  route:'<circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h6a3 3 0 000-6h-4a3 3 0 010-6h6"/>',
+  via:'<path d="M6 21V4M6 5h11l-2 4 2 4H6"/>',
+  share:'<path d="M12 15V4M8 8l4-4 4 4M5 12v7h14v-7"/>',
+  log:'<path d="M5 19V10M12 19V5M19 19v-6"/>',
+  g:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3"/>',
+  demo:'<path d="M7 5l12 7-12 7z"/>',
+  gmap:'<path d="M14 4h6v6M20 4l-9 9M18 14v5H5V6h5"/>',
+  park:'<path d="M7 20V4h6a4 4 0 010 8H7"/>',
+  mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/>',
+  dl:'<path d="M12 4v11M8 11l4 4 4-4M5 20h14"/>',
+  screen:'<rect x="7" y="3" width="10" height="18" rx="2"/><path d="M11 18h2"/>',
+  bk:'<path d="M4 7h16M4 12h16M4 17h10"/>',
+  moon:'<path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/>'
+};
+function openSheet(title){$('sht').textContent=title;$('shb').innerHTML='';$('shm').textContent='';$('sh').classList.add('show');return $('shb');}
+function closeSheet(){$('sh').classList.remove('show');}
+$('shx').onclick=closeSheet;
+function addList(b,title,sub,btns){
+  const row=document.createElement('div');row.className='r';
+  const t=document.createElement('div');t.className='rt';t.textContent=title;
+  String(sub||'').split('\n').forEach(line=>{if(!line)return;const sm=document.createElement('small');sm.textContent=line;t.appendChild(sm);});
+  row.appendChild(t);
+  (btns||[]).forEach(([lb,fn])=>{const x=document.createElement('button');x.className='sm';x.textContent=lb;x.onclick=fn;row.appendChild(x);});
+  b.appendChild(row);return row;
+}
+function demoUI(on){demoOn=on;}
+function openGmap(){
+  if(!dest){$('shm').textContent='目的地が未設定です';return;}
+  window.open('https://www.google.com/maps/dir/?api=1&destination='+dest.lat+','+dest.lon+'&travelmode=driving','_blank');
+}
+async function shareEta(){
+  if(!route||!dest){$('shm').textContent='案内中ではありません';return;}
+  const text=dest.name+'に'+$('eta').textContent+'頃に到着予定です\nhttps://www.google.com/maps/search/?api=1&query='+dest.lat+','+dest.lon;
+  try{
+    if(navigator.share)await navigator.share({text:text});
+    else if(navigator.clipboard){await navigator.clipboard.writeText(text);setStatus('到着予定をコピーしました');}
+  }catch(e){}
+  closeSheet();
+}
+function openMenu(){
+  const b=openSheet('メニュー');
+  const g=document.createElement('div');g.className='tg';
+  const items=[
+    ['route','ルート候補',()=>openRouteSheet(false)],
+    ['via','経由地を追加',()=>{closeSheet();openSearch('via');}],
+    ['share','到着予定を共有',shareEta],
+    ['log','走行ログ',openLog],
+    ['g','Gメーター '+(gEnabled?'ON':'OFF'),toggleG],
+    ['park','駐車位置を記録',saveParking],
+    ['park','駐車位置へ案内',goParking],
+    ['mic','音声で目的地',voiceSearch],
+    ['dl','地図を保存',saveMapAlongRoute],
+    ['screen','画面点灯 '+(wakeOK?'ON':'要タップ'),()=>{keepAwake();setTimeout(openMenu,400);}],
+    ['demo',sim?'デモ停止':'デモ走行',()=>{closeSheet();toggleDemo();}],
+    ['gmap','Gマップで開く',openGmap],
+    ['moon','表示設定',openDisplay],
+    ['bk','バックアップ',openBackup]
+  ];
+  items.forEach(([ic,lb,fn])=>{
+    const x=document.createElement('button');x.innerHTML='<svg viewBox="0 0 24 24">'+IC[ic]+'</svg><span>'+lb+'</span>';x.onclick=fn;g.appendChild(x);
+  });
+  b.appendChild(g);
+}
+function openRouteSheet(auto){
+  if(!alts.length||!route){const b=openSheet('ルート候補');$('shm').textContent='案内中ではありません';return;}
+  const b=openSheet(auto?'ルートを選んでください':'ルート候補');
+  $('shm').textContent=alts.length>1?(auto?'今は A案 で案内中です。変えるときはタップしてください':'タップで切り替えます'):'このルート以外の候補は見つかりませんでした';
+  alts.forEach((r,i)=>{
+    const km=r.distance/1000,mn=Math.round(r.duration/60);
+    const x=document.createElement('button');x.className='card'+(i===altIdx?' on':'');
+    let diff='';if(i>0){const dk=km-alts[0].distance/1000,dm=mn-Math.round(alts[0].duration/60);diff='  A案比 '+(dk>=0?'+':'')+dk.toFixed(1)+'km / '+(dm>=0?'+':'')+dm+'分';}
+    x.innerHTML='<span>'+'ABC'[i]+'案'+(i===0?'（おすすめ）':'')+'</span><span>'+km.toFixed(1)+' km ・ 約'+mn+'分'+diff+'</span>';
+    x.onclick=()=>{altIdx=i;setRoute(alts[i]);closeSheet();update();setStatus('ルート '+'ABC'[i]+'案 で案内中');};
+    b.appendChild(x);
+  });
+}
+
+/* ---------- 周辺施設 ---------- */
+const CATS=[['fuel','ガソリン','nwr[amenity=fuel]'],['conv','コンビニ','nwr[shop=convenience]'],['park','駐車場','nwr[amenity=parking][access!~"private|customers|permit|delivery"]'],['toilet','トイレ','nwr[amenity=toilets]']];
+let nearTarget='pos';
+function openNearby(){
+  const b=openSheet('周辺の施設');
+  nearTarget='pos';
+  const chips=document.createElement('div');chips.className='chips';
+  const list=document.createElement('div');
+  if(dest){
+    const cc=document.createElement('div');cc.className='chips';
+    [['pos','現在地の周辺'],['dest','目的地の周辺']].forEach(([k,l])=>{const x=document.createElement('button');x.textContent=l;if(k==='pos')x.classList.add('on');x.onclick=()=>{nearTarget=k;[...cc.children].forEach(y=>y.classList.remove('on'));x.classList.add('on');};cc.appendChild(x);});
+    b.appendChild(cc);
+  }
+  CATS.forEach(c=>{const x=document.createElement('button');x.textContent=c[1];x.onclick=()=>{[...chips.children].forEach(y=>y.classList.remove('on'));x.classList.add('on');loadNearby(c,list);};chips.appendChild(x);});
+  b.appendChild(chips);b.appendChild(list);
+  const h=document.createElement('div');h.className='hl';h.textContent='探したい施設を選んでください（現在地から3km以内）';list.appendChild(h);
+}
+async function loadNearby(c,list){
+  if(!pos){list.innerHTML='';$('shm').textContent='現在地を取得できません';return;}
+  list.innerHTML='';$('shm').textContent='検索中…';
+  try{
+    const cpt=(nearTarget==='dest'&&dest)?dest:pos;
+    const q='[out:json][timeout:12];'+c[2].replace('nwr','nwr(around:3000,'+cpt.lat+','+cpt.lon+')')+';out center 80;';
+    const r=await fetch('https://overpass-api.de/api/interpreter',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:'data='+encodeURIComponent(q)});
+    const j=await r.json();
+    const hd=(pos.heading!=null&&!isNaN(pos.heading))?pos.heading:null;
+    const moving=(pos.speed||0)>2&&hd!=null;
+    const arr=(j.elements||[]).map(e=>{
+      const la=e.lat!=null?e.lat:(e.center&&e.center.lat),lo=e.lon!=null?e.lon:(e.center&&e.center.lon);
+      if(la==null)return null;
+      const t=e.tags||{};
+      const name=t.name||t.brand||t.operator||(c[1]+'（名称なし）');
+      const d=hav(cpt.lat,cpt.lon,la,lo);
+      let dir='';
+      if(moving&&cpt===pos){const df=Math.abs(((bearing(pos.lat,pos.lon,la,lo)-hd+540)%360)-180);dir=df<60?'前方':df>120?'後方':'横';}
+      return {la,lo,name,d,dir,inf:tagInfo(t)};
+    }).filter(Boolean).sort((x,y)=>x.d-y.d).slice(0,14);
+    $('shm').textContent=arr.length?'':'3km以内に見つかりませんでした（地図データに未登録の可能性があります）';
+    arr.forEach(x=>{
+      const [v,u]=fmtDist(x.d);
+      const btns=[['目的地',()=>startRoute({lat:x.la,lon:x.lo},x.name)]];
+      if(x.inf.phone)btns.unshift(['電話',()=>{location.href='tel:'+x.inf.phone.replace(/[^\d+]/g,'');}]);
+      if(route)btns.push(['経由地',()=>addVia({lat:x.la,lon:x.lo},x.name)]);
+      addList(list,x.name,v+u+(x.dir?' ・ '+x.dir:'')+(x.inf.line?'\n'+x.inf.line:''),btns);
+    });
+  }catch(e){$('shm').textContent='検索に失敗しました（通信を確認してください）';}
+}
+
 /* ---------- ボタン ---------- */
-$('bSearch').onclick=()=>{keepAwake();$('ov').classList.add('show');setTimeout(()=>$('q').focus(),50);};
-$('bClose').onclick=()=>$('ov').classList.remove('show');
+function openSearch(mode){searchMode=mode;keepAwake();showMsg(mode==='via'?'経由地を検索してください':'');renderHome();$('ov').classList.add('show');setTimeout(()=>$('q').focus(),50);}
+$('bSearch').onclick=()=>openSearch('dest');
+$('q').addEventListener('input',()=>{if(!$('q').value.trim())renderHome();});
+$('bClose').onclick=()=>{$('ov').classList.remove('show');searchMode='dest';};
 $('bGo').onclick=search;
 $('q').addEventListener('keydown',e=>{if(e.key==='Enter')search();});
+$('bMap').onclick=()=>{
+  mapMode=!mapMode;
+  if(mapMode&&!initMap()){mapMode=false;return;}
+  document.body.classList.toggle('mapmode',mapMode);
+  $('bMap').classList.toggle('on',mapMode);$('bMap').querySelector('span').textContent=mapMode?'HUD':'マップ';
+  if(mapMode){setTimeout(()=>{map.resize();moveMap();},60);}
+};
 $('bVoice').onclick=()=>{
-  voiceOn=!voiceOn;$('bVoice').textContent=voiceOn?'🔊 音声':'🔇 音声';$('bVoice').classList.toggle('on',voiceOn);
+  voiceOn=!voiceOn;$('bVoice').querySelector('span').textContent=voiceOn?'音声 ON':'音声 OFF';$('bVoice').classList.toggle('on',voiceOn);
   if(voiceOn)speak('音声案内をオンにしました');
 };
-$('bDemo').onclick=()=>{keepAwake();toggleDemo();};
 $('bStop').onclick=()=>{
-  if(sim){clearInterval(sim);sim=null;$('bDemo').classList.remove('on');}
-  route=null;dest=null;coords=[];steps=[];
+  if(sim){clearInterval(sim);sim=null;demoUI(false);}
+  saveLog('終了');
+  route=null;dest=null;via=[];alts=[];coords=[];steps=[];drawRoute();drawMarkers();closeSheet();
   $('tdist').innerHTML='--<small>m</small>';$('tinstr').textContent='目的地を設定してください';$('tnext').textContent='';
   $('eta').textContent='--:--';$('rem').innerHTML='--<small>km</small>';$('remt').innerHTML='--<small>分</small>';
   setArrow(0);setStatus('案内を終了しました');
   if(window.speechSynthesis)speechSynthesis.cancel();
 };
+$('bNear').onclick=()=>{keepAwake();openNearby();};
+$('bMenu').onclick=()=>{keepAwake();openMenu();};
+$('zIn').onclick=()=>{zoomOff=Math.min(zoomOff+0.7,3);overviewUntil=0;moveMap();};
+$('zOut').onclick=()=>{zoomOff=Math.max(zoomOff-0.7,-4);overviewUntil=0;moveMap();};
+$('zFit').onclick=()=>{if(!route){setStatus('案内中ではありません');return;}toggleOverview();};
 $('limit').onclick=()=>{
-  const L=[0,30,40,50,60,80,100];limit=L[(L.indexOf(limit)+1)%L.length];
-  const el=$('limit');if(limit){el.textContent=limit;el.classList.remove('off');}else{el.textContent='制限';el.classList.add('off');}
+  const L=[0,30,40,50,60,80,100];manualLimit=L[(L.indexOf(manualLimit)+1)%L.length];renderLimit();
+  if(manualLimit===0){lastLim.t=0;}
 };
 $('speed').onclick=()=>$('limit').click();
 
-startGps();keepAwake();
+applyUi();setArrow(0);renderLimit();startGps();keepAwake();
+try{if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});}catch(e){}
 </script>
 </body>
 </html>
