@@ -111,7 +111,8 @@ button.card.on span:last-child{color:var(--ac)}
 #gdot{position:absolute;left:50%;top:50%;width:2.6vh;height:2.6vh;margin:-1.3vh 0 0 -1.3vh;border-radius:50%;background:var(--ac2);box-shadow:0 0 1.6vh var(--ac2);transition:transform .4s}
 #fab{position:fixed;right:max(3vw,env(safe-area-inset-right));bottom:17vh;display:none;flex-direction:column;gap:1vh;z-index:3}
 body.mapmode #fab{display:flex}
-#fab button{width:10vh;height:10vh;padding:0;--cut:1.5vh}
+#fab button{width:8.4vh;height:8.4vh;padding:0;--cut:1.5vh}
+#zN.on{border-color:var(--ac);box-shadow:inset 0 0 0 1px var(--ac)}
 #zMe{display:none}
 #zMe.show{display:block;border-color:var(--ac)}
 #map{touch-action:none}
@@ -227,6 +228,7 @@ body.mapmode #bar{margin-top:1vh}
 <div id="fab">
   <button id="zIn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
   <button id="zOut"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg></button>
+  <button id="zN" style="font-size:3.6vh;font-weight:800;letter-spacing:0">N</button>
   <button id="zMe"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
   <button id="zFit"><svg viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
 </div>
@@ -642,7 +644,7 @@ function renderHome(){
 }
 
 /* ---------- マップ ---------- */
-let map=null,mapLoaded=false,carMk=null,mapMode=false,lastHd=0,freeUntil=0;
+let map=null,mapLoaded=false,carMk=null,mapMode=false,lastHd=0,freeUntil=0,northUp=!!lsGet('hud_north',false);
 function setFree(on){freeUntil=on?Date.now()+30000:0;$('zMe').classList.toggle('show',on);}
 function routeGeo(){return {type:'Feature',geometry:{type:'LineString',coordinates:route?coords:[]}};}
 function drawRoute(){if(map&&mapLoaded)map.getSource('route').setData(routeGeo());}
@@ -660,6 +662,7 @@ function initMap(){
     map.addLayer({id:'route-line',type:'line',source:'route',layout:{'line-join':'round','line-cap':'round'},paint:{'line-color':'#1ec8ff','line-width':8}});
     mapLoaded=true;drawRoute();drawMarkers();
   });
+  setupLongPress();
   map.touchZoomRotate.disableRotation();map.touchPitch&&map.touchPitch.disable();
   ['dragstart','zoomstart'].forEach(ev=>map.on(ev,e=>{if(e.originalEvent){overviewUntil=0;setFree(true);}}));
   ['moveend','touchend'].forEach(ev=>map.on(ev,e=>{if(freeUntil)freeUntil=Date.now()+30000;}));
@@ -667,6 +670,46 @@ function initMap(){
   el.innerHTML='<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="#19e3ff" stroke-width="1.6" stroke-dasharray="5 6" opacity=".9"/><circle cx="50" cy="50" r="32" fill="rgba(25,227,255,.2)" stroke="#19e3ff" stroke-width="5"/><polygon points="50,28 63,66 50,58 37,66" fill="#fff" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>';
   carMk=new maplibregl.Marker({element:el,anchor:'center'}).setLngLat(c).addTo(map);
   return true;
+}
+let tmpPin=null,lpT=0,lpStart=null;
+function clearTmpPin(){if(tmpPin){tmpPin.remove();tmpPin=null;}}
+async function dropPin(ll){
+  clearTmpPin();
+  const e=document.createElement('div');e.className='pin';e.style.background='#19e3ff';e.style.boxShadow='0 0 1.6vh rgba(25,227,255,.8)';
+  tmpPin=new maplibregl.Marker({element:e,anchor:'bottom'}).setLngLat([ll.lng,ll.lat]).addTo(map);
+  if(navigator.vibrate)try{navigator.vibrate(20);}catch(x){}
+  const d={lat:ll.lat,lon:ll.lng};
+  let title='選んだ地点';
+  const b=openSheet('ピンを立てた場所');
+  const pin=tmpPin;
+  $('shm').textContent='住所を調べています…';
+  const c=document.createElement('div');c.className='chips';
+  const mk=(lb,fn)=>{const x=document.createElement('button');x.textContent=lb;x.onclick=fn;c.appendChild(x);return x;};
+  mk('ここへ行く',()=>{const t=title;closeSheet();startRoute(d,t);});
+  if(route)mk('経由地に追加',()=>{const t=title;closeSheet();addVia(d,t);});
+  mk('登録する（自宅・会社・その他）',()=>{const t=title;registerFav(d,t);});
+  b.appendChild(c);
+  try{
+    const r=await fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&zoom=18&accept-language=ja&lat='+d.lat+'&lon='+d.lon);
+    const j=await r.json();const a=j.address||{};
+    const city=a.city||a.town||a.village||a.municipality||a.county||'';
+    const sub=a.suburb||a.neighbourhood||a.quarter||a.city_district||a.hamlet||'';
+    const t=((a.state&&!city?a.state:'')+city+sub+(a.road?' '+a.road:'')+(a.house_number?' '+a.house_number:'')).trim();
+    if(t)title=t;else if(j.display_name)title=j.display_name.split(', ').slice(0,3).join(' ');
+  }catch(x){}
+  if(pin===tmpPin)$('shm').textContent=title;
+}
+function setupLongPress(){
+  const cancel=()=>{clearTimeout(lpT);lpT=0;lpStart=null;};
+  map.on('touchstart',e=>{
+    cancel();
+    if(!e.originalEvent||e.originalEvent.touches&&e.originalEvent.touches.length!==1)return;
+    lpStart={x:e.point.x,y:e.point.y};const ll=e.lngLat;
+    lpT=setTimeout(()=>{lpT=0;dropPin(ll);},600);
+  });
+  map.on('touchmove',e=>{if(lpStart&&Math.hypot(e.point.x-lpStart.x,e.point.y-lpStart.y)>12)cancel();});
+  ['touchend','touchcancel','dragstart','zoomstart'].forEach(ev=>map.on(ev,cancel));
+  map.on('contextmenu',e=>{cancel();dropPin(e.lngLat);});
 }
 let destMk=null,viaMks=[];
 function drawMarkers(){
@@ -693,8 +736,10 @@ function moveMap(){
   if(pos.heading!=null&&!isNaN(pos.heading)&&(pos.speed==null||pos.speed>1))lastHd=pos.heading;
   carMk.setLngLat([pos.lon,pos.lat]);
   const z=sp<15?17:sp<40?16.3:sp<70?15.5:14.6;
-  map.easeTo({center:[pos.lon,pos.lat],bearing:lastHd,pitch:55,zoom:Math.min(18.5,Math.max(11,z+zoomOff)),duration:900,easing:t=>t,
-    padding:{top:Math.round(window.innerHeight*0.38),bottom:0,left:0,right:0}});
+  const arw=carMk.getElement().querySelector('polygon');
+  if(arw)arw.setAttribute('transform','rotate('+(northUp?lastHd:0)+' 50 50)');
+  map.easeTo({center:[pos.lon,pos.lat],bearing:northUp?0:lastHd,pitch:northUp?0:55,zoom:Math.min(18.5,Math.max(11,z+zoomOff)),duration:900,easing:t=>t,
+    padding:{top:northUp?Math.round(window.innerHeight*0.12):Math.round(window.innerHeight*0.38),bottom:0,left:0,right:0}});
 }
 
 /* ---------- GPS ---------- */
@@ -768,7 +813,7 @@ async function toggleDemo(){
 /* ---------- 検索 ---------- */
 function showMsg(t){$('msg').textContent=t;}
 function normQ(q){
-  return q.normalize('NFKC').replace(/[‐‑‒–—―ーｰ−－]/g,'-').replace(/\s+/g,' ').trim();
+  return q.normalize('NFKC').replace(/[‐‑‒–—―−－]/g,'-').replace(/([0-9])[ーｰ](?=[0-9])/g,'$1-').replace(/\s+/g,' ').trim();
 }
 async function gsiSearch(q){
   const r=await fetch('https://msearch.gsi.go.jp/address-search/AddressSearch?q='+encodeURIComponent(q));
@@ -792,19 +837,38 @@ async function search(quiet){
   if(!quiet){showMsg('検索中…');$('res').innerHTML='';}
   const addrLike=/[0-9]|丁目|番地|番|[都道府県市区町村郡]/.test(q);
   const [g,n]=await Promise.allSettled([gsiSearch(q),nomSearch(q)]);
-  const G=(g.status==='fulfilled'?g.value:[]).slice(0,addrLike?6:3).map(x=>({lat:x.lat,lon:x.lon,name:x.name,sub:'住所'}));
+  const qn=q.replace(/\s/g,'');
+  const near=x=>pos?hav(pos.lat,pos.lon,x.lat,x.lon):0;
+  const G=(g.status==='fulfilled'?g.value:[]).slice().sort((a,b)=>{
+    const ia=a.name.includes(qn)?0:1,ib=b.name.includes(qn)?0:1;
+    return ia-ib||near(a)-near(b);
+  }).slice(0,6).map(x=>({lat:x.lat,lon:x.lon,name:x.name,sub:x.name.includes('県')||x.name.includes('市')||x.name.includes('町')||x.name.includes('村')||/[0-9０-９]/.test(x.name)?'住所':'地名・施設'}));
   if(my!==srchSeq||normQ($('q').value)!==q)return;
   const N=n.status==='fulfilled'?n.value:[];
-  const all=addrLike?G.concat(N):N.concat(G);
+  const exact=G.filter(x=>x.name.includes(qn));
+  const G2=exact.length?exact:G;
+  const all=addrLike?G2.concat(N):(exact.length?exact.concat(N):N.concat(G2));
   const out=[];
   all.forEach(x=>{if(!out.some(y=>hav(y.lat,y.lon,x.lat,x.lon)<30&&y.name===x.name))out.push(x);});
   $('res').innerHTML='';
+  if(!out.length&&addrLike){
+    const base=q.replace(/[0-9\-丁目番地号の]+$/,'').trim();
+    if(base&&base!==q){
+      try{
+        const alt=await nomSearch(base);
+        if(my!==srchSeq)return;
+        alt.slice(0,4).forEach(x=>out.push({lat:x.lat,lon:x.lon,name:x.name,sub:'番地は見つからず、町名の位置です\n'+x.sub}));
+      }catch(e){}
+    }
+  }
   if(!out.length){
     if(g.status==='rejected'&&n.status==='rejected')showMsg('検索に失敗しました（通信を確認してください）');
+    else if(g.status==='rejected')showMsg('住所検索サーバー（国土地理院）に接続できませんでした。施設名では検索できます');
     else showMsg('見つかりませんでした。「甲府市丸の内1-1-1」のように市町村から入れるか、施設名で試してください');
     return;
   }
-  showMsg('');
+  if(g.status==='rejected')showMsg('※住所検索サーバーに接続できないため、施設名の結果のみです');
+  if(g.status!=='rejected')showMsg('');
   out.slice(0,10).forEach(x=>addRow(x.name,x.sub,{lat:x.lat,lon:x.lon,phone:x.phone},true));
 }
 
@@ -1164,7 +1228,7 @@ const IC={
   moon:'<path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/>'
 };
 function openSheet(title){$('sht').textContent=title;$('shb').innerHTML='';$('shm').textContent='';$('sh').classList.add('show');return $('shb');}
-function closeSheet(){$('sh').classList.remove('show');}
+function closeSheet(){$('sh').classList.remove('show');clearTmpPin();}
 $('shx').onclick=closeSheet;
 function addList(b,title,sub,btns){
   const row=document.createElement('div');row.className='r';
@@ -1294,7 +1358,7 @@ $('bMap').onclick=()=>{
   if(mapMode&&!initMap()){mapMode=false;return;}
   document.body.classList.toggle('mapmode',mapMode);
   $('bMap').classList.toggle('on',mapMode);$('bMap').querySelector('span').textContent=mapMode?'HUD':'マップ';
-  if(mapMode){setTimeout(()=>{map.resize();moveMap();},60);}
+  if(mapMode){$('zN').classList.toggle('on',northUp);setTimeout(()=>{map.resize();moveMap();},60);setStatus('地図を長押しすると、ピンを立てて行き先や登録ができます');}
 };
 $('bVoice').onclick=()=>{
   voiceOn=!voiceOn;$('bVoice').querySelector('span').textContent=voiceOn?'音声 ON':'音声 OFF';$('bVoice').classList.toggle('on',voiceOn);
@@ -1312,6 +1376,7 @@ $('bStop').onclick=()=>{
 $('bNear').onclick=()=>{keepAwake();openNearby();};
 $('bMenu').onclick=()=>{keepAwake();openMenu();};
 $('zIn').onclick=()=>{zoomOff=Math.min(zoomOff+0.7,3);overviewUntil=0;setFree(false);moveMap();};
+$('zN').onclick=()=>{northUp=!northUp;lsSet('hud_north',northUp);$('zN').classList.toggle('on',northUp);setStatus(northUp?'北が上（北固定）':'進行方向が上');if(!northUp&&map)map.easeTo({bearing:lastHd,pitch:55,duration:400});overviewUntil=0;setFree(false);moveMap();};
 $('zMe').onclick=()=>{overviewUntil=0;setFree(false);moveMap();};
 $('zOut').onclick=()=>{zoomOff=Math.max(zoomOff-0.7,-4);overviewUntil=0;setFree(false);moveMap();};
 $('zFit').onclick=()=>{if(!route){setStatus('案内中ではありません');return;}toggleOverview();};
